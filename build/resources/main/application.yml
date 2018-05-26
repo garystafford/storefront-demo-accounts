@@ -1,0 +1,19 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://mongo:27017/accounts
+  kafka:
+    bootstrap-servers: kafka:9092
+    topic:
+      json: test
+    consumer:
+      group-id: json
+      auto-offset-reset: earliest
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+logging:
+  level:
+    root: INFO

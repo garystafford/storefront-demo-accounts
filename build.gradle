@@ -1,0 +1,42 @@
+plugins {
+    id 'com.github.ben-manes.versions' version '0.17.0'
+    id 'io.spring.dependency-management' version '1.0.5.RELEASE'
+    id 'org.sonarqube' version '2.6.2'
+    id 'org.springframework.boot' version '2.0.2.RELEASE'
+    id 'idea'
+    id 'java'
+
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    jcenter()
+}
+
+def major = '1'
+def minor = '0'
+def patch = System.env.BUILD_NUMBER ?: '0'
+def artifact_version = major + '.' + minor + '.' + patch
+version = artifact_version
+
+bootJar {
+    launchScript()
+}
+
+ext {
+    springBootVersion = '2.0.2.RELEASE'
+    springKafkaVersion = '2.1.6.RELEASE'
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
+    compile("org.springframework.kafka:spring-kafka:${springKafkaVersion}")
+    compileOnly("org.projectlombok:lombok:1.16.20")
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    testCompile("org.springframework.kafka:spring-kafka-test:${springKafkaVersion}")
+}
+
