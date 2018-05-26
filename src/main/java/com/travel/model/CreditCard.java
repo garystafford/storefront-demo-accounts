@@ -16,6 +16,12 @@ public class CreditCard {
     private ObjectId id;
 
     @NonNull
+    private CreditCardType type;
+
+    @NonNull
+    private String description;
+
+    @NonNull
     private String number;
 
     @NonNull

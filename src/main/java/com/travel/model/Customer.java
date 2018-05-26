@@ -8,6 +8,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,34 +20,18 @@ public class Customer {
     private ObjectId id;
 
     @NonNull
-    private String firstName;
+    private Name name;
 
     @NonNull
-    private String lastName;
+    private Contact contact;
 
     @NonNull
-    private String primaryPhone;
-
-    private String secondaryPhone;
+    private List<Address> addresses;
 
     @NonNull
-    private String email;
+    private List<CreditCard> creditCards;
 
     @NonNull
-    private Address billingAddress;
-
-    @NonNull
-    private Address shippingAddress;
-
-    @NonNull
-    private CreditCard primaryCreditCard;
-
-    private CreditCard secondaryCreditCard;
-
-    @NonNull
-    private String username;
-
-    @NonNull
-    private String password;
+    private Credentials credentials;
 
 }

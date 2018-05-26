@@ -10,29 +10,22 @@ import org.springframework.data.annotation.Id;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address {
+public class Name {
 
     @Id
     private ObjectId id;
 
     @NonNull
-    private AddressType type;
+    private String title;
 
     @NonNull
-    private String description;
+    private String firstName;
+
+    private String middleName;
 
     @NonNull
-    private String address1;
+    private String lastName;
 
-    private String address2;
-
-    @NonNull
-    private String city;
-
-    @NonNull
-    private String state;
-
-    @NonNull
-    private String postalCode;
+    private String suffix;
 
 }
