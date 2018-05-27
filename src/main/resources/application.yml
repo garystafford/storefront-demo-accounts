@@ -16,4 +16,4 @@ management:
         include: '*'
 logging:
   level:
-    root: INFO
+    root: DEBUG

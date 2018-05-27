@@ -3,16 +3,18 @@ package com.travel;
 import com.travel.model.*;
 import com.travel.respository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class Utility {
 
     @Autowired
-    private static CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
 
-    public static void createCustomers() {
+    public void createCustomers() {
         customerRepository.deleteAll();
 
         // New Customer 1
@@ -146,13 +148,13 @@ public class Utility {
         for (Customer customer : customerRepository.findAll()) {
             System.out.println(customer);
         }
-        System.out.println();
-
-        System.out.println("Customers found with findByLastName('Doe'):");
-        System.out.println("--------------------------------");
-        for (Customer customer : customerRepository.findByLastName("Doe")) {
-            System.out.println(customer);
-        }
+//        System.out.println();
+//
+//        System.out.println("Customers found with findByName(name):");
+//        System.out.println("--------------------------------");
+//        for (Customer customer : customerRepository.findByName(name)) {
+//            System.out.println(customer);
+//        }
     }
 
 }
