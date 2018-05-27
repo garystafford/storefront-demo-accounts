@@ -28,7 +28,7 @@ public class CustomerController {
 
     @RequestMapping(path = "/sample", method = RequestMethod.GET)
     public ResponseEntity<String> sampleData() {
-        Utility utility = new Utility();
+        Utility utility = new Utility(customerRepository);
         utility.createTestData();
         return new ResponseEntity("Sample data created", HttpStatus.CREATED);
     }

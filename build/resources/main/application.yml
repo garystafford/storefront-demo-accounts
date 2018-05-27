@@ -16,7 +16,7 @@ management:
         include: '*'
 logging:
   level:
-    root: INFO
+    root: DEBUG
 ---
 spring:
   profiles: dev

@@ -11,8 +11,12 @@ import java.util.List;
 @Component
 public class Utility {
 
-    @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    public Utility(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
 
     public void createTestData() {
         customerRepository.deleteAll();

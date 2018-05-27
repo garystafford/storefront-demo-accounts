@@ -10,14 +10,18 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class BeforeConvertListener extends AbstractMongoEventListener<Customer> {
 
-    @Autowired
     private Sender sender;
+
+    @Autowired
+    public BeforeConvertListener(Sender sender) {
+        this.sender = sender;
+    }
 
     @Override
     public void onBeforeConvert(BeforeConvertEvent<Customer> event) {
-        System.out.print("I found this: " + event.getSource());
-        Customer customer = event.getSource();
-        sender.send(customer);
+//        System.out.print("I found this: " + event.getSource());
+//        Customer customer = event.getSource();
+//        sender.send(customer);
 
     }
 }

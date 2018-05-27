@@ -17,7 +17,7 @@ import java.util.List;
 public class Customer {
 
     @Id
-    private ObjectId id;
+    private String id;
 
     @NonNull
     private Name name;
