@@ -1,6 +1,8 @@
-# Kafka Travel Microservices Demo: Accounts
+# Kafka Traveler Microservices Demo: Accounts
 
-Spring Boot / Spring Kafka Microservice, part of a set of microservices. Services use Spring Kafka 2.1.6 to maintain an eventually consistent `Customer` domain object between each services.
+## Accounts Service
+
+Spring Boot/Kafka/Mongo Microservice, first of a set of microservices for this project. Services use Spring Kafka 2.1.6 to maintain eventually consistent data between their different `Customer` domain objects.
 
 Originally code based on the post, [Spring Kafka - JSON Serializer Deserializer Example](https://www.codenotfound.com/spring-kafka-json-serializer-deserializer-example.html), from the [CodeNotFound.com](https://www.codenotfound.com/) Blog. Original business domain idea based on the post, [Distributed Sagas for Microservices](https://dzone.com/articles/distributed-sagas-for-microservices), on [DZone](https://dzone.com/).
 
@@ -29,7 +31,7 @@ java -jar accounts-1.0.0.jar --spring.profiles.active=dev
 curl localhost:8080/customers/sample
 ```
 
-## Containers
+## Container Infrastructure
 
 ```text
 CONTAINER ID        IMAGE                           COMMAND                  CREATED             STATUS              PORTS                                                NAMES
@@ -39,7 +41,7 @@ fde71dcb89be        wurstmeister/kafka:latest       "start-kafka.sh"         21 
 538397f51320        wurstmeister/zookeeper:latest   "/bin/sh -c '/usr/sb…"   21 hours ago        Up 21 hours         22/tcp, 2888/tcp, 3888/tcp, 0.0.0.0:2181->2181/tcp   kafka-docker_zookeeper_1
 ```
 
-## Results
+## Current Results
 
 Output from application, on the `test` topic
 
