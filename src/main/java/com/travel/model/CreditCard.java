@@ -12,9 +12,6 @@ import org.springframework.data.annotation.Id;
 @AllArgsConstructor
 public class CreditCard {
 
-    @Id
-    private ObjectId id;
-
     @NonNull
     private CreditCardType type;
 

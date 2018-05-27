@@ -12,9 +12,6 @@ import org.springframework.data.annotation.Id;
 @AllArgsConstructor
 public class Contact {
 
-    @Id
-    private ObjectId id;
-
     @NonNull
     private String primaryPhone;
 
