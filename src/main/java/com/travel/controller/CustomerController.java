@@ -2,7 +2,6 @@ package com.travel.controller;
 
 import com.travel.Utility;
 import com.travel.model.Customer;
-import com.travel.model.Name;
 import com.travel.respository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,7 +29,7 @@ public class CustomerController {
     @RequestMapping(path = "/sample", method = RequestMethod.GET)
     public ResponseEntity<String> sampleData() {
         Utility utility = new Utility();
-        utility.createCustomers();
+        utility.createTestData();
         return new ResponseEntity("Sample data created", HttpStatus.CREATED);
     }
 

@@ -1,9 +1,9 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://mongo:27017/accounts
+      uri: mongodb://localhost:27017/accounts
   kafka:
-    bootstrap-servers: kafka:9092
+    bootstrap-servers: localhost:9092
     topic:
       json: test
     consumer:
@@ -16,4 +16,15 @@ management:
         include: '*'
 logging:
   level:
-    root: DEBUG
+    root: INFO
+---
+spring:
+  profiles: dev
+  data:
+    mongodb:
+      uri: mongodb://mongo:27017/accounts
+  kafka:
+    bootstrap-servers: kafka:9092
+logging:
+  level:
+    root: INFO

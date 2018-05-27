@@ -14,7 +14,7 @@ public class Utility {
     @Autowired
     private CustomerRepository customerRepository;
 
-    public void createCustomers() {
+    public void createTestData() {
         customerRepository.deleteAll();
 
         // New Customer 1
@@ -148,13 +148,6 @@ public class Utility {
         for (Customer customer : customerRepository.findAll()) {
             System.out.println(customer);
         }
-//        System.out.println();
-//
-//        System.out.println("Customers found with findByName(name):");
-//        System.out.println("--------------------------------");
-//        for (Customer customer : customerRepository.findByName(name)) {
-//            System.out.println(customer);
-//        }
     }
 
 }
