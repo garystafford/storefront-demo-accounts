@@ -1,8 +1,6 @@
 package com.storefront;
 
 import com.storefront.model.*;
-import com.storefront.respository.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,15 +9,9 @@ import java.util.List;
 @Component
 public class Utility {
 
-    private CustomerRepository customerRepository;
+    public static List<Customer> createSampleCustomers() {
 
-    @Autowired
-    public Utility(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
-
-    public void createTestData() {
-        customerRepository.deleteAll();
+        List<Customer> customerList = new ArrayList<>();
 
         // New Customer 1
         Name name = new Name();
@@ -87,7 +79,7 @@ public class Utility {
         newCustomer.setCreditCards(creditCardList);
         newCustomer.setCredentials(credentials);
 
-        customerRepository.save(newCustomer);
+        customerList.add(newCustomer);
 
         // New Customer 2
         name = new Name();
@@ -144,14 +136,10 @@ public class Utility {
         newCustomer.setCreditCards(creditCardList);
         newCustomer.setCredentials(credentials);
 
-        customerRepository.save(newCustomer);
+        customerList.add(newCustomer);
 
-        // fetch all customers
-        System.out.println("Customers found with findAll():");
-        System.out.println("-------------------------------");
-        for (Customer customer : customerRepository.findAll()) {
-            System.out.println(customer);
-        }
+        return customerList;
+
     }
 
 }

@@ -28,14 +28,16 @@ public class CustomerController {
 
     @RequestMapping(path = "/sample", method = RequestMethod.GET)
     public ResponseEntity<String> sampleData() {
-        Utility utility = new Utility(customerRepository);
-        utility.createTestData();
+        customerRepository.deleteAll();
+        customerRepository.saveAll(Utility.createSampleCustomers());
+
         return new ResponseEntity("Sample data created", HttpStatus.CREATED);
     }
 
     @RequestMapping(path = "/summary", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Map<String, List<Customer>>> candidateSummary() {
+
         List<Customer> candidateList = customerRepository.findAll();
         return new ResponseEntity<>(Collections.singletonMap("candidates", candidateList), HttpStatus.OK);
     }

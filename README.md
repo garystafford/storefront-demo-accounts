@@ -12,21 +12,22 @@ For [Kakfa](https://kafka.apache.org/), I use my [garystafford/kafka-docker](htt
 
 ## Commands
 
-I debug directly from JetBrains IntelliJ. For testing the application in development, I build the jar, copy it to Alpine Linux OpenJDK `testapp` container, and run it.
+I debug directly from JetBrains IntelliJ. For testing the application in development, I build the jar, copy it to Alpine Linux OpenJDK `testapp` container, and run it. If testing more than one service in the same testapp container, make sure ports don't collide. Start services on different ports.
 
 ```bash
 # build
 ./gradlew clean build -x test
 
 # copy
-docker cp /build/libs/accounts-1.0.0.jar kafka-docker_testapp_1:/accounts-1.0.0.jar
+docker cp build/libs/accounts-1.0.0.jar kafka-docker_testapp_1:/accounts-1.0.0.jar
 docker exec -it kafka-docker_testapp_1 sh
 
 # install curl
 apk update && apk add curl
 
 # start with 'dev' profile
-java -jar accounts-1.0.0.jar --spring.profiles.active=dev
+java -jar accounts-1.0.0.jar \
+  --spring.profiles.active=dev
 
 curl localhost:8080/customers/sample
 ```
@@ -43,7 +44,7 @@ fde71dcb89be        wurstmeister/kafka:latest       "start-kafka.sh"         21 
 
 ## Current Results
 
-Output from application, on the `test` topic
+Output from application, on the `accounts` topic
 
 ```text
 2018-05-27 20:22:05.787  INFO 128 --- [nio-8080-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version : 1.0.1
@@ -63,7 +64,7 @@ Output from Kafka container using the following command.
 ```bash
 kafka-console-consumer.sh \
   --bootstrap-server localhost:9092 \
-  --from-beginning --topic 'test'
+  --from-beginning --topic 'accounts'
 ```
 
 Kafka Consumer Output
@@ -74,12 +75,32 @@ Kafka Consumer Output
 {"id":"5b0b136dbe417600801761c9","name":{"title":"Ms.","firstName":"Mary","middleName":null,"lastName":"Smith","suffix":null},"contact":{"primaryPhone":"456-789-0001","secondaryPhone":"456-222-1111","email":"marysmith@yougotmail.com"},"addresses":[{"type":"BILLING","description":"My CC billing address","address1":"1234 Main Street","address2":null,"city":"Anywhere","state":"NY","postalCode":"45455-66677"},{"type":"SHIPPING","description":"Home Sweet Home","address1":"1234 Main Street","address2":null,"city":"Anywhere","state":"NY","postalCode":"45455-66677"}],"creditCards":[{"type":"PRIMARY","description":"VISA","number":"4545-6767-8989-0000","expiration":"7/21","nameOnCard":"Mary Smith"}],"credentials":{"username":"msmith445","password":"S*$475hf&*dddFFG3"}}
 ```
 
+Create `accounts` topic
+
 ```bash
 kafka-topics.sh --create \
   --zookeeper zookeeper:2181 \
   --replication-factor 1 --partitions 1 \
   --topic accounts
 ```
+
+Clear messages from `accounts` topic
+
+```bash
+kafka-configs.sh --zookeeper zookeeper:2181 \
+  --alter --entity-type topics --entity-name accounts \
+  --add-config retention.ms=1000
+
+# wait ~ 2-3 minutes to clear...check if clear
+kafka-console-consumer.sh \
+  --bootstrap-server localhost:9092 \
+  --from-beginning --topic 'accounts'
+
+kafka-configs.sh --zookeeper zookeeper:2181 \
+  --alter --entity-type topics --entity-name accounts \
+  --delete-config retention.ms
+```
+
 
 ## References
 
