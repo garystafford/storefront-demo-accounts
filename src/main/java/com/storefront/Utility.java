@@ -1,7 +1,7 @@
-package com.travel;
+package com.storefront;
 
-import com.travel.model.*;
-import com.travel.respository.CustomerRepository;
+import com.storefront.model.*;
+import com.storefront.respository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

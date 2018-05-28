@@ -5,7 +5,7 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092
     topic:
-      json: test
+      accounts: accounts
     consumer:
       group-id: json
       auto-offset-reset: earliest

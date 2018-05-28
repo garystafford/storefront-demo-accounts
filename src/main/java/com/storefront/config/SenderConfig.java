@@ -1,7 +1,7 @@
-package com.travel.config;
+package com.storefront.config;
 
-import com.travel.kafka.Sender;
-import com.travel.model.Customer;
+import com.storefront.kafka.Sender;
+import com.storefront.model.Customer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;

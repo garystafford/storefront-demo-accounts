@@ -1,8 +1,8 @@
-package com.travel.controller;
+package com.storefront.controller;
 
-import com.travel.Utility;
-import com.travel.model.Customer;
-import com.travel.respository.CustomerRepository;
+import com.storefront.Utility;
+import com.storefront.model.Customer;
+import com.storefront.respository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

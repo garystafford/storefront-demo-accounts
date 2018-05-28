@@ -1,4 +1,4 @@
-package com.travel.model;
+package com.storefront.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

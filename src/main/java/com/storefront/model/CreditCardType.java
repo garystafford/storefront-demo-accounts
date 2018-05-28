@@ -1,4 +1,4 @@
-package com.travel.model;
+package com.storefront.model;
 
 public enum CreditCardType {
     PRIMARY,

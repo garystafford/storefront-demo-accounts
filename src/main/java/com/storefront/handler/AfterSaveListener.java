@@ -1,7 +1,7 @@
-package com.travel.handler;
+package com.storefront.handler;
 
-import com.travel.kafka.Sender;
-import com.travel.model.Customer;
+import com.storefront.kafka.Sender;
+import com.storefront.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.AfterSaveEvent;

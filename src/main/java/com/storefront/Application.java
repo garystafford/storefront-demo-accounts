@@ -1,4 +1,4 @@
-package com.travel;
+package com.storefront;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

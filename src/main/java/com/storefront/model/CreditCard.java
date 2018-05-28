@@ -1,4 +1,4 @@
-package com.travel.model;
+package com.storefront.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,26 +8,21 @@ import lombok.NonNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address {
+public class CreditCard {
 
     @NonNull
-    private AddressType type;
+    private CreditCardType type;
 
     @NonNull
     private String description;
 
     @NonNull
-    private String address1;
-
-    private String address2;
+    private String number;
 
     @NonNull
-    private String city;
+    private String expiration;
 
     @NonNull
-    private String state;
-
-    @NonNull
-    private String postalCode;
+    private String nameOnCard;
 
 }
