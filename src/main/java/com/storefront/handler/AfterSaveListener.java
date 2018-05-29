@@ -2,11 +2,13 @@ package com.storefront.handler;
 
 import com.storefront.kafka.Sender;
 import com.storefront.model.Customer;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.AfterSaveEvent;
 import org.springframework.stereotype.Controller;
 
+@Slf4j
 @Controller
 public class AfterSaveListener extends AbstractMongoEventListener<Customer> {
 
@@ -19,7 +21,7 @@ public class AfterSaveListener extends AbstractMongoEventListener<Customer> {
 
     @Override
     public void onAfterSave(AfterSaveEvent<Customer> event) {
-        System.out.print("I found this Source: " + event.getSource());
+        log.info("event='{}'", event);
         Customer customer = event.getSource();
         sender.send(customer);
 

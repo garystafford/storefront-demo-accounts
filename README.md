@@ -2,7 +2,7 @@
 
 ## Accounts Service
 
-Spring Boot/Kafka/Mongo Microservice, first of a set of microservices for this project. Services use Spring Kafka 2.1.6 to maintain eventually consistent data between their different `Customer` domain objects.
+Spring Boot/Kafka/Mongo Microservice, part of a set of microservices for this project. Services use Spring Kafka 2.1.6 to maintain eventually consistent data between their different `Customer` domain objects.
 
 Originally code based on the post, [Spring Kafka - JSON Serializer Deserializer Example](https://www.codenotfound.com/spring-kafka-json-serializer-deserializer-example.html), from the [CodeNotFound.com](https://www.codenotfound.com/) Blog. Original business domain idea based on the post, [Distributed Sagas for Microservices](https://dzone.com/articles/distributed-sagas-for-microservices), on [DZone](https://dzone.com/).
 
@@ -36,9 +36,12 @@ Create sample customers with an order history.
 ```bash
 # create sample accounts customers
 curl http://localhost:8080/customers/sample
+
 # create sample orders products
 curl http://localhost:8890/products/sample
-# add sample order history to orders customers (received from accounts via kafka)
+# add sample order history to orders customers
+# (received from kafka accounts.customer.save topic)
+
 curl http://localhost:8890/customers/sample
 
 ```
@@ -53,9 +56,70 @@ fde71dcb89be        wurstmeister/kafka:latest       "start-kafka.sh"         21 
 538397f51320        wurstmeister/zookeeper:latest   "/bin/sh -c '/usr/sb…"   21 hours ago        Up 21 hours         22/tcp, 2888/tcp, 3888/tcp, 0.0.0.0:2181->2181/tcp   kafka-docker_zookeeper_1
 ```
 
+## Orders Customer Object in MongoDB
+
+`db.customer.find().pretty();`
+
+```bson
+{
+	"_id" : ObjectId("5b0c54e2be41760051d00383"),
+	"name" : {
+		"title" : "Mr.",
+		"firstName" : "John",
+		"middleName" : "S.",
+		"lastName" : "Doe",
+		"suffix" : "Jr."
+	},
+	"contact" : {
+		"primaryPhone" : "555-666-7777",
+		"secondaryPhone" : "555-444-9898",
+		"email" : "john.doe@internet.com"
+	},
+	"addresses" : [
+		{
+			"type" : "BILLING",
+			"description" : "My cc billing address",
+			"address1" : "123 Oak Street",
+			"city" : "Sunrise",
+			"state" : "CA",
+			"postalCode" : "12345-6789"
+		},
+		{
+			"type" : "SHIPPING",
+			"description" : "My home address",
+			"address1" : "123 Oak Street",
+			"city" : "Sunrise",
+			"state" : "CA",
+			"postalCode" : "12345-6789"
+		}
+	],
+	"creditCards" : [
+		{
+			"type" : "PRIMARY",
+			"description" : "VISA",
+			"number" : "1234-6789-0000-0000",
+			"expiration" : "6/19",
+			"nameOnCard" : "John S. Doe"
+		},
+		{
+			"type" : "ALTERNATE",
+			"description" : "Corporate American Express",
+			"number" : "9999-8888-7777-6666",
+			"expiration" : "3/20",
+			"nameOnCard" : "John Doe"
+		}
+	],
+	"credentials" : {
+		"username" : "johndoe37",
+		"password" : "skd837#$hfh485&"
+	},
+	"_class" : "com.storefront.model.Customer"
+}
+```
+
 ## Current Results
 
-Output from application, on the `accounts` topic
+Output from application, on the `accounts.customer.save` topic
 
 ```text
 2018-05-27 20:22:05.787  INFO 128 --- [nio-8080-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version : 1.0.1
@@ -75,7 +139,7 @@ Output from Kafka container using the following command.
 ```bash
 kafka-console-consumer.sh \
   --bootstrap-server localhost:9092 \
-  --from-beginning --topic 'accounts'
+  --from-beginning --topic accounts.customer.save
 ```
 
 Kafka Consumer Output
@@ -86,29 +150,29 @@ Kafka Consumer Output
 {"id":"5b0b136dbe417600801761c9","name":{"title":"Ms.","firstName":"Mary","middleName":null,"lastName":"Smith","suffix":null},"contact":{"primaryPhone":"456-789-0001","secondaryPhone":"456-222-1111","email":"marysmith@yougotmail.com"},"addresses":[{"type":"BILLING","description":"My CC billing address","address1":"1234 Main Street","address2":null,"city":"Anywhere","state":"NY","postalCode":"45455-66677"},{"type":"SHIPPING","description":"Home Sweet Home","address1":"1234 Main Street","address2":null,"city":"Anywhere","state":"NY","postalCode":"45455-66677"}],"creditCards":[{"type":"PRIMARY","description":"VISA","number":"4545-6767-8989-0000","expiration":"7/21","nameOnCard":"Mary Smith"}],"credentials":{"username":"msmith445","password":"S*$475hf&*dddFFG3"}}
 ```
 
-Create `accounts` topic
+Create `accounts.customer.save` topic
 
 ```bash
 kafka-topics.sh --create \
   --zookeeper zookeeper:2181 \
   --replication-factor 1 --partitions 1 \
-  --topic accounts
+  --topic accounts.customer.save
 ```
 
-Clear messages from `accounts` topic
+Clear messages from `accounts.customer.save` topic
 
 ```bash
 kafka-configs.sh --zookeeper zookeeper:2181 \
-  --alter --entity-type topics --entity-name accounts \
+  --alter --entity-type topics --entity-name accounts.customer.save \
   --add-config retention.ms=1000
 
 # wait ~ 2-3 minutes to clear...check if clear
 kafka-console-consumer.sh \
   --bootstrap-server localhost:9092 \
-  --from-beginning --topic 'accounts'
+  --from-beginning --topic accounts.customer.save
 
 kafka-configs.sh --zookeeper zookeeper:2181 \
-  --alter --entity-type topics --entity-name accounts \
+  --alter --entity-type topics --entity-name accounts.customer.save \
   --delete-config retention.ms
 ```
 
