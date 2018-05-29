@@ -5,10 +5,7 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092
     topic:
-      accounts: accounts
-    consumer:
-      group-id: json
-      auto-offset-reset: earliest
+      accounts-customer-save: accounts.customer.save
 management:
   endpoints:
     web:
