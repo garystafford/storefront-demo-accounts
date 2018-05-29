@@ -11,10 +11,6 @@ plugins {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-repositories {
-    jcenter()
-}
-
 def major = '1'
 def minor = '0'
 def patch = System.env.BUILD_NUMBER ?: '0'
@@ -30,7 +26,22 @@ ext {
     springKafkaVersion = '2.1.6.RELEASE'
 }
 
+repositories {
+    jcenter()
+    maven {
+        url 'https://repo.spring.io/libs-milestone'
+    }
+
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.cloud:spring-cloud-sleuth:2.0.0.RC2'
+    }
+}
+
 dependencies {
+    compile("org.springframework.cloud:spring-cloud-starter-sleuth:2.0.0.RC2")
     compile("org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
@@ -39,4 +50,3 @@ dependencies {
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
     testCompile("org.springframework.kafka:spring-kafka-test:${springKafkaVersion}")
 }
-
