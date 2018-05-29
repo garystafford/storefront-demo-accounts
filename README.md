@@ -18,6 +18,9 @@ I debug directly from JetBrains IntelliJ. For testing the application in develop
 # build
 ./gradlew clean build
 
+# start container if stopped
+docker start kafka-docker_testapp_1
+
 # copy
 docker cp build/libs/accounts-1.0.0.jar kafka-docker_testapp_1:/accounts-1.0.0.jar
 docker exec -it kafka-docker_testapp_1 sh
