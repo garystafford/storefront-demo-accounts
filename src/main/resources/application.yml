@@ -5,7 +5,7 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092
     topic:
-      accounts-customer-save: accounts.customer.save
+      accounts-customer: accounts.customers.change
 management:
   endpoints:
     web:

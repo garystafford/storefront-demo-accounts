@@ -9,7 +9,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 @Slf4j
 public class Sender {
 
-    @Value("${spring.kafka.topic.accounts-customer-save}")
+    @Value("${spring.kafka.topic.accounts-customer}")
     private String topic;
 
     @Autowired
