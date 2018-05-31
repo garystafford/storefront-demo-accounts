@@ -6,6 +6,9 @@ spring:
     bootstrap-servers: localhost:9092
     topic:
       accounts-customer: accounts.customers.change
+    consumer:
+      group-id: accounts
+      auto-offset-reset: earliest
 management:
   endpoints:
     web:

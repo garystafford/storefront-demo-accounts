@@ -36,9 +36,9 @@ public class CustomerController {
 
     @RequestMapping(path = "/summary", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Map<String, List<Customer>>> candidateSummary() {
+    public ResponseEntity<Map<String, List<Customer>>> customerSummary() {
 
-        List<Customer> candidateList = customerRepository.findAll();
-        return new ResponseEntity<>(Collections.singletonMap("candidates", candidateList), HttpStatus.OK);
+        List<Customer> customerList = customerRepository.findAll();
+        return new ResponseEntity<>(Collections.singletonMap("customers", customerList), HttpStatus.OK);
     }
 }
