@@ -68,16 +68,11 @@ public class Utility {
 
         creditCardList.add(creditCard);
 
-        Credentials credentials = new Credentials();
-        credentials.setUsername("johndoe37");
-        credentials.setPassword("skd837#$hfh485&");
-
         Customer newCustomer = new Customer();
         newCustomer.setName(name);
         newCustomer.setContact(contact);
         newCustomer.setAddresses(addressList);
         newCustomer.setCreditCards(creditCardList);
-        newCustomer.setCredentials(credentials);
 
         customerList.add(newCustomer);
 
@@ -125,21 +120,66 @@ public class Utility {
 
         creditCardList.add(creditCard);
 
-        credentials = new Credentials();
-        credentials.setUsername("msmith445");
-        credentials.setPassword("S*$475hf&*dddFFG3");
+        newCustomer = new Customer();
+        newCustomer.setName(name);
+        newCustomer.setContact(contact);
+        newCustomer.setAddresses(addressList);
+        newCustomer.setCreditCards(creditCardList);
+
+        customerList.add(newCustomer);
+
+        // New Customer 3
+        name = new Name();
+        name.setTitle("Ms.");
+        name.setFirstName("Susan");
+        name.setLastName("Blackstone");
+
+        contact = new Contact();
+        contact.setPrimaryPhone("433-544-6555");
+        contact.setSecondaryPhone("223-445-6767");
+        contact.setEmail("susan.m.blackstone@emailisus.com");
+
+        addressList = new ArrayList<>();
+
+        address = new Address();
+        address.setType(AddressType.BILLING);
+        address.setDescription("My CC billing address");
+        address.setAddress1("33 Oak Avenue");
+        address.setCity("Nowhere");
+        address.setState("VT");
+        address.setPostalCode("444556-9090");
+
+        addressList.add(address);
+
+        address = new Address();
+        address.setType(AddressType.SHIPPING);
+        address.setDescription("Home Sweet Home");
+        address.setAddress1("33 Oak Avenue");
+        address.setCity("Nowhere");
+        address.setState("VT");
+        address.setPostalCode("444556-9090");
+
+        addressList.add(address);
+
+        creditCardList = new ArrayList<>();
+
+        creditCard = new CreditCard();
+        creditCard.setType(CreditCardType.PRIMARY);
+        creditCard.setDescription("Master Card");
+        creditCard.setNumber("4545-5656-7878-9090");
+        creditCard.setExpiration("4/19");
+        creditCard.setNameOnCard("Susan M. Blackstone");
+
+        creditCardList.add(creditCard);
 
         newCustomer = new Customer();
         newCustomer.setName(name);
         newCustomer.setContact(contact);
         newCustomer.setAddresses(addressList);
         newCustomer.setCreditCards(creditCardList);
-        newCustomer.setCredentials(credentials);
 
         customerList.add(newCustomer);
-
         return customerList;
-
     }
 
 }

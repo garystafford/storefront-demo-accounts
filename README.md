@@ -43,7 +43,7 @@ curl http://localhost:8080/customers/sample
 # create sample orders products
 curl http://localhost:8890/products/sample
 # add sample order history to orders customers
-# (received from kafka accounts.customer.save topic)
+# (received from kafka accounts.customers.change topic)
 
 curl http://localhost:8890/customers/sample
 
@@ -122,13 +122,13 @@ fde71dcb89be        wurstmeister/kafka:latest       "start-kafka.sh"         21 
 
 ## Current Results
 
-Output from application, on the `accounts.customer.save` topic
+Output from application, on the `accounts.customers.change` topic
 
 ```text
 2018-05-29 02:10:54.698  INFO [-,e7e54e47afbb9716,e7e54e47afbb9716,false] 253 --- [nio-8080-exec-3] o.a.kafka.common.utils.AppInfoParser     : Kafka version : 1.0.1
 2018-05-29 02:10:54.700  INFO [-,e7e54e47afbb9716,e7e54e47afbb9716,false] 253 --- [nio-8080-exec-3] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId : c0518aa65f25317e
 2018-05-29 02:10:54.975  INFO [-,e7e54e47afbb9716,e7e54e47afbb9716,false] 253 --- [nio-8080-exec-3] c.storefront.handler.AfterSaveListener   : event='org.springframework.data.mongodb.core.mapping.event.AfterSaveEvent[source=Customer(id=5b0cb6aebe417600fda8c706, name=Name(title=Ms., firstName=Mary, middleName=null, lastName=Smith, suffix=null), contact=Contact(primaryPhone=456-789-0001, secondaryPhone=456-222-1111, email=marysmith@yougotmail.com), addresses=[Address(type=BILLING, description=My CC billing address, address1=1234 Main Street, address2=null, city=Anywhere, state=NY, postalCode=45455-66677), Address(type=SHIPPING, description=Home Sweet Home, address1=1234 Main Street, address2=null, city=Anywhere, state=NY, postalCode=45455-66677)], creditCards=[CreditCard(type=PRIMARY, description=VISA, number=4545-6767-8989-0000, expiration=7/21, nameOnCard=Mary Smith)], credentials=Credentials(username=msmith445, password=S*$475hf&*dddFFG3))]'
-2018-05-29 02:10:54.977  INFO [-,e7e54e47afbb9716,e7e54e47afbb9716,false] 253 --- [nio-8080-exec-3] com.storefront.kafka.Sender              : sending payload='Customer(id=5b0cb6aebe417600fda8c706, name=Name(title=Ms., firstName=Mary, middleName=null, lastName=Smith, suffix=null), contact=Contact(primaryPhone=456-789-0001, secondaryPhone=456-222-1111, email=marysmith@yougotmail.com), addresses=[Address(type=BILLING, description=My CC billing address, address1=1234 Main Street, address2=null, city=Anywhere, state=NY, postalCode=45455-66677), Address(type=SHIPPING, description=Home Sweet Home, address1=1234 Main Street, address2=null, city=Anywhere, state=NY, postalCode=45455-66677)], creditCards=[CreditCard(type=PRIMARY, description=VISA, number=4545-6767-8989-0000, expiration=7/21, nameOnCard=Mary Smith)], credentials=Credentials(username=msmith445, password=S*$475hf&*dddFFG3))' to topic='accounts.customer.save'
+2018-05-29 02:10:54.977  INFO [-,e7e54e47afbb9716,e7e54e47afbb9716,false] 253 --- [nio-8080-exec-3] com.storefront.kafka.Sender              : sending payload='Customer(id=5b0cb6aebe417600fda8c706, name=Name(title=Ms., firstName=Mary, middleName=null, lastName=Smith, suffix=null), contact=Contact(primaryPhone=456-789-0001, secondaryPhone=456-222-1111, email=marysmith@yougotmail.com), addresses=[Address(type=BILLING, description=My CC billing address, address1=1234 Main Street, address2=null, city=Anywhere, state=NY, postalCode=45455-66677), Address(type=SHIPPING, description=Home Sweet Home, address1=1234 Main Street, address2=null, city=Anywhere, state=NY, postalCode=45455-66677)], creditCards=[CreditCard(type=PRIMARY, description=VISA, number=4545-6767-8989-0000, expiration=7/21, nameOnCard=Mary Smith)], credentials=Credentials(username=msmith445, password=S*$475hf&*dddFFG3))' to topic='accounts.customers.change'
 ```
 
 Output from Kafka container using the following command.
@@ -136,7 +136,7 @@ Output from Kafka container using the following command.
 ```bash
 kafka-console-consumer.sh \
   --bootstrap-server localhost:9092 \
-  --from-beginning --topic accounts.customer.save
+  --from-beginning --topic accounts.customers.change
 ```
 
 Kafka Consumer Output
@@ -146,29 +146,29 @@ Kafka Consumer Output
 {"id":"5b0ca230be4176002f6199a0","name":{"title":"Ms.","firstName":"Mary","middleName":null,"lastName":"Smith","suffix":null},"contact":{"primaryPhone":"456-789-0001","secondaryPhone":"456-222-1111","email":"marysmith@yougotmail.com"},"addresses":[{"type":"BILLING","description":"My CC billing address","address1":"1234 Main Street","address2":null,"city":"Anywhere","state":"NY","postalCode":"45455-66677"},{"type":"SHIPPING","description":"Home Sweet Home","address1":"1234 Main Street","address2":null,"city":"Anywhere","state":"NY","postalCode":"45455-66677"}],"creditCards":[{"type":"PRIMARY","description":"VISA","number":"4545-6767-8989-0000","expiration":"7/21","nameOnCard":"Mary Smith"}],"credentials":{"username":"msmith445","password":"S*$475hf&*dddFFG3"}}
 ```
 
-Create `accounts.customer.save` topic
+Create `accounts.customers.change` topic
 
 ```bash
 kafka-topics.sh --create \
   --zookeeper zookeeper:2181 \
   --replication-factor 1 --partitions 1 \
-  --topic accounts.customer.save
+  --topic accounts.customers.change
 ```
 
-Clear messages from `accounts.customer.save` topic
+Clear messages from `accounts.customers.change` topic
 
 ```bash
 kafka-configs.sh --zookeeper zookeeper:2181 \
-  --alter --entity-type topics --entity-name accounts.customer.save \
+  --alter --entity-type topics --entity-name accounts.customers.change \
   --add-config retention.ms=1000
 
 # wait ~ 2-3 minutes to clear...check if clear
 kafka-console-consumer.sh \
   --bootstrap-server localhost:9092 \
-  --from-beginning --topic accounts.customer.save
+  --from-beginning --topic accounts.customers.change
 
 kafka-configs.sh --zookeeper zookeeper:2181 \
-  --alter --entity-type topics --entity-name accounts.customer.save \
+  --alter --entity-type topics --entity-name accounts.customers.change \
   --delete-config retention.ms
 ```
 
@@ -176,6 +176,5 @@ kafka-configs.sh --zookeeper zookeeper:2181 \
 ## References
 
 -   [Spring Kafka – Consumer and Producer Example](https://memorynotfound.com/spring-kafka-consume-producer-example/)
--   [Spring Kafka - JSON Serializer Deserializer Example
-    ](https://www.codenotfound.com/spring-kafka-json-serializer-deserializer-example.html)
+-   [Spring Kafka - JSON Serializer Deserializer Example](https://www.codenotfound.com/spring-kafka-json-serializer-deserializer-example.html)
 -   [Spring for Apache Kafka: 2.1.6.RELEASE](https://docs.spring.io/spring-kafka/reference/html/index.html)

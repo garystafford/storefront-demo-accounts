@@ -29,8 +29,4 @@ public class Customer {
 
     @NonNull
     private List<CreditCard> creditCards;
-
-    @NonNull
-    private Credentials credentials;
-
 }
