@@ -61,7 +61,7 @@ fde71dcb89be        wurstmeister/kafka:latest       "start-kafka.sh"         21 
 
 ## Orders Customer Object in MongoDB
 
-`db.customer.find().pretty();`
+`db.customer.accounts.find().pretty();`
 
 ```bson
 {
@@ -178,3 +178,4 @@ kafka-configs.sh --zookeeper zookeeper:2181 \
 -   [Spring Kafka – Consumer and Producer Example](https://memorynotfound.com/spring-kafka-consume-producer-example/)
 -   [Spring Kafka - JSON Serializer Deserializer Example](https://www.codenotfound.com/spring-kafka-json-serializer-deserializer-example.html)
 -   [Spring for Apache Kafka: 2.1.6.RELEASE](https://docs.spring.io/spring-kafka/reference/html/index.html)
+-   [Spring Data MongoDB - Reference Documentation](https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/)

@@ -3,9 +3,9 @@ spring:
     mongodb:
       uri: mongodb://localhost:27017/accounts
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: 127.0.0.1:9092
     topic:
-      accounts-customer: accounts.customers.change
+      accounts-customer: accounts.customer.change
     consumer:
       group-id: accounts
       auto-offset-reset: earliest
