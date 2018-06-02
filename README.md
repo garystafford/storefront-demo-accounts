@@ -41,22 +41,25 @@ Create sample customers with an order history.
 curl http://localhost:8080/customers/sample
 
 # create sample orders products
-curl http://localhost:8890/products/sample
+curl http://localhost:8090/products/sample
+
 # add sample order history to orders customers
 # (received from kafka accounts.customers.change topic)
-
-curl http://localhost:8890/customers/sample
+curl http://localhost:8090/customers/samples
+curl http://localhost:8090/customers/sample
+curl http://localhost:8090/customers/fulfill
 
 ```
 
 ## Container Infrastructure
 
 ```text
-CONTAINER ID        IMAGE                           COMMAND                  CREATED             STATUS              PORTS                                                NAMES
-f11b56e51d57        openjdk:8u151-jdk-alpine3.7     "sleep 6000"             4 seconds ago       Up 3 seconds                                                             kafka-docker_testapp_1
-ede27d4c993b        mongo:latest                    "docker-entrypoint.s…"   21 hours ago        Up 21 hours         0.0.0.0:27017->27017/tcp                             kafka-docker_mongo_1
-fde71dcb89be        wurstmeister/kafka:latest       "start-kafka.sh"         21 hours ago        Up 21 hours         0.0.0.0:9092->9092/tcp                               kafka-docker_kafka_1
-538397f51320        wurstmeister/zookeeper:latest   "/bin/sh -c '/usr/sb…"   21 hours ago        Up 21 hours         22/tcp, 2888/tcp, 3888/tcp, 0.0.0.0:2181->2181/tcp   kafka-docker_zookeeper_1
+CONTAINER ID        IMAGE                            COMMAND                  CREATED             STATUS              PORTS                                                NAMES
+6079603c5d92        openjdk:8u151-jdk-alpine3.7      "sleep 6000"             4 hours ago         Up About an hour                                                         kafka-docker_testapp_1
+df8914058cbb        hlebalbau/kafka-manager:latest   "/kafka-manager/bin/…"   4 hours ago         Up 4 hours          0.0.0.0:9000->9000/tcp                               kafka-docker_kafka_manager_1
+5cd8f61330e0        wurstmeister/kafka:latest        "start-kafka.sh"         4 hours ago         Up 4 hours          0.0.0.0:9092->9092/tcp                               kafka-docker_kafka_1
+497901621c7d        mongo:latest                     "docker-entrypoint.s…"   4 hours ago         Up 4 hours          0.0.0.0:27017->27017/tcp                             kafka-docker_mongo_1
+9079612e36ad        wurstmeister/zookeeper:latest    "/bin/sh -c '/usr/sb…"   4 hours ago         Up 4 hours          22/tcp, 2888/tcp, 3888/tcp, 0.0.0.0:2181->2181/tcp   kafka-docker_zookeeper_1
 ```
 
 ## Orders Customer Object in MongoDB
