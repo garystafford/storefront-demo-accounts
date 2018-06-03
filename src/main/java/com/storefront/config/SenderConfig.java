@@ -25,6 +25,7 @@ public class SenderConfig {
 
     @Bean
     public Map<String, Object> producerConfigs() {
+
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -35,16 +36,19 @@ public class SenderConfig {
 
     @Bean
     public ProducerFactory<String, Customer> producerFactory() {
+
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
     @Bean
     public KafkaTemplate<String, Customer> kafkaTemplate() {
+
         return new KafkaTemplate<>(producerFactory());
     }
 
     @Bean
     public Sender sender() {
+
         return new Sender();
     }
 }
