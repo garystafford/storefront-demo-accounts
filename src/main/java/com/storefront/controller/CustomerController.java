@@ -1,6 +1,6 @@
 package com.storefront.controller;
 
-import com.storefront.Utility;
+import com.storefront.utilities.SampleData;
 import com.storefront.model.Customer;
 import com.storefront.respository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class CustomerController {
     @RequestMapping(path = "/sample", method = RequestMethod.GET)
     public ResponseEntity<String> sampleData() {
         customerRepository.deleteAll();
-        customerRepository.saveAll(Utility.createSampleCustomers());
+        customerRepository.saveAll(SampleData.createSampleCustomers());
 
         return new ResponseEntity("Sample data created", HttpStatus.CREATED);
     }

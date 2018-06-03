@@ -1,4 +1,4 @@
-package com.storefront;
+package com.storefront.utilities;
 
 import com.storefront.model.*;
 import org.springframework.stereotype.Component;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class Utility {
+public class SampleData {
 
     public static List<Customer> createSampleCustomers() {
 
