@@ -53,8 +53,8 @@ curl http://localhost:8090/customers/fulfill
 # fulfillment: change fulfillment requests from approved to processing
 curl http://localhost:8095/fulfillment/sample/process
 
-# fulfillment: change fulfillment requests from processing to shipped
-curl http://localhost:8095/fulfillment/sample/ship
+# fulfillment: change fulfillment requests from processing to completed
+curl http://localhost:8095/fulfillment/sample/complete
 ```
 
 ## Container Infrastructure

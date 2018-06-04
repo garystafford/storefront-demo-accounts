@@ -51,7 +51,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
     compile("org.springframework.kafka:spring-kafka:${springKafkaVersion}")
-    compileOnly("org.projectlombok:lombok:1.16.20")
+    compileOnly("org.projectlombok:lombok:1.16.22")
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
     testCompile("org.springframework.kafka:spring-kafka-test:${springKafkaVersion}")
 }
