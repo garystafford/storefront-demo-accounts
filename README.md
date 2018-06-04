@@ -29,7 +29,8 @@ docker exec -it kafka-docker_testapp_1 sh
 apk update && apk add curl
 
 # start with 'dev' profile
-java -jar accounts-1.0.0.jar --spring.profiles.active=dev
+java -jar accounts-1.0.0.jar --spring.profiles.active=dev --server.port=8085 \
+    --logging.level.root=DEBUG
 ```
 
 ## Creating Sample Data
@@ -38,7 +39,7 @@ Create sample data for each service. Requires Kafka is running.
 
 ```bash
 # accounts: create sample customer accounts
-curl http://localhost:8080/customers/sample
+curl http://localhost:8085/customers/sample
 
 # orders: create sample products
 curl http://localhost:8090/products/sample
