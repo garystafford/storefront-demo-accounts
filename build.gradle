@@ -24,6 +24,8 @@ bootJar {
 ext {
     springBootVersion = '2.0.2.RELEASE'
     springKafkaVersion = '2.1.6.RELEASE'
+    springFoxVersion = '2.9.0'
+
 }
 
 repositories {
@@ -41,6 +43,9 @@ dependencyManagement {
 }
 
 dependencies {
+    compile("io.springfox:springfox-swagger-ui:${springFoxVersion}")
+    compile("io.springfox:springfox-data-rest:${springFoxVersion}")
+    compile("io.springfox:springfox-swagger2:${springFoxVersion}")
     compile("org.springframework.cloud:spring-cloud-starter-sleuth:2.0.0.RC2")
     compile("org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
