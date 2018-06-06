@@ -131,7 +131,7 @@ df8914058cbb        hlebalbau/kafka-manager:latest   "/kafka-manager/bin/…"   
 
 ## Current Results
 
-Output from application, on the `accounts.customers.change` topic
+Output from application, on the `accounts.customer.change` topic
 
 ```text
 2018-06-03 03:17:36.510  INFO [-,aee18dd362da06b4,aee18dd362da06b4,false] 12 --- [nio-8080-exec-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version : 1.0.1
@@ -147,7 +147,7 @@ Output from Kafka container using the following command.
 ```bash
 kafka-console-consumer.sh \
   --bootstrap-server localhost:9092 \
-  --from-beginning --topic accounts.customers.change
+  --from-beginning --topic accounts.customer.change
 ```
 
 Kafka Consumer Output
@@ -158,32 +158,31 @@ Kafka Consumer Output
 {"id":"5b135dd0be4176000cf30284","name":{"title":"Ms.","firstName":"Susan","middleName":null,"lastName":"Blackstone","suffix":null},"contact":{"primaryPhone":"433-544-6555","secondaryPhone":"223-445-6767","email":"susan.m.blackstone@emailisus.com"},"addresses":[{"type":"BILLING","description":"My CC billing address","address1":"33 Oak Avenue","address2":null,"city":"Nowhere","state":"VT","postalCode":"444556-9090"},{"type":"SHIPPING","description":"Home Sweet Home","address1":"33 Oak Avenue","address2":null,"city":"Nowhere","state":"VT","postalCode":"444556-9090"}],"creditCards":[{"type":"PRIMARY","description":"Master Card","number":"4545-5656-7878-9090","expiration":"4/19","nameOnCard":"Susan M. Blackstone"}]}
 ```
 
-Create `accounts.customers.change` topic
+Create `accounts.customer.change` topic
 
 ```bash
 kafka-topics.sh --create \
   --zookeeper zookeeper:2181 \
   --replication-factor 1 --partitions 1 \
-  --topic accounts.customers.change
+  --topic accounts.customer.change
 ```
 
-Clear messages from `accounts.customers.change` topic
+Clear messages from `accounts.customer.change` topic
 
 ```bash
 kafka-configs.sh --zookeeper zookeeper:2181 \
-  --alter --entity-type topics --entity-name accounts.customers.change \
+  --alter --entity-type topics --entity-name accounts.customer.change \
   --add-config retention.ms=1000
 
 # wait ~ 2-3 minutes to clear...check if clear
 kafka-console-consumer.sh \
   --bootstrap-server localhost:9092 \
-  --from-beginning --topic accounts.customers.change
+  --from-beginning --topic accounts.customer.change
 
 kafka-configs.sh --zookeeper zookeeper:2181 \
-  --alter --entity-type topics --entity-name accounts.customers.change \
+  --alter --entity-type topics --entity-name accounts.customer.change \
   --delete-config retention.ms
 ```
-
 
 ## References
 
