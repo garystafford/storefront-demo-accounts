@@ -8,29 +8,14 @@ Originally code based on the post, [Spring Kafka - JSON Serializer Deserializer 
 
 ## Development
 
-For [Kakfa](https://kafka.apache.org/), I use my [garystafford/kafka-docker](https://github.com/garystafford/kafka-docker) project, a clone of the [wurstmeister/kafka-docker](https://github.com/wurstmeister/kafka-docker) project. The `garystafford/kafka-docker` [local docker-compose file](https://github.com/garystafford/kafka-docker/blob/master/docker-compose-local.yml) builds a Kafka, ZooKeeper, MongoDB, and Alpine Linux OpenJDK container.
+For [Kakfa](https://kafka.apache.org/), I use my [garystafford/kafka-docker](https://github.com/garystafford/kafka-docker) project, a clone of the [wurstmeister/kafka-docker](https://github.com/wurstmeister/kafka-docker) project. The `garystafford/kafka-docker` [local docker-compose file](https://github.com/garystafford/kafka-docker/blob/master/docker-compose-local.yml) builds a Kafka, Kafka Manager, ZooKeeper, and MongoDB.
 
 ## Commands
 
-I debug directly from JetBrains IntelliJ. For testing the application in development, I build the jar, copy it to Alpine Linux OpenJDK `testapp` container, and run it. If testing more than one service in the same testapp container, make sure ports don't collide. Start services on different ports.
+I develop and debug directly from JetBrains IntelliJ. The default Spring profile will start the three services on different ports.
 
 ```bash
-# start container if stopped
-docker start kafka-docker_testapp_1
-
-# build
-./gradlew clean build
-
-# copy
-docker cp build/libs/accounts-1.0.0.jar kafka-docker_testapp_1:/accounts-1.0.0.jar
-docker exec -it kafka-docker_testapp_1 sh
-
-# install curl
-apk update && apk add curl
-
-# start with 'dev' profile
-java -jar accounts-1.0.0.jar --spring.profiles.active=dev --server.port=8085 \
-    --logging.level.root=DEBUG
+./gradlew clean build bootRun
 ```
 
 ## Creating Sample Data
@@ -39,29 +24,28 @@ Create sample data for each service. Requires Kafka is running.
 
 ```bash
 # accounts: create sample customer accounts
-curl http://localhost:8085/customers/sample
+http http://localhost:8085/customers/sample
 
 # orders: create sample products
-curl http://localhost:8090/products/sample
+http http://localhost:8090/products/sample
 
 # orders: add sample orders to each customer
-curl http://localhost:8090/customers/sample/orders
+http http://localhost:8090/customers/sample/orders
 
 # orders: send approved orders to fulfillment service
-curl http://localhost:8090/customers/fulfill
+http http://localhost:8090/customers/fulfill
 
 # fulfillment: change fulfillment requests from approved to processing
-curl http://localhost:8095/fulfillment/sample/process
+http http://localhost:8095/fulfillment/sample/process
 
 # fulfillment: change fulfillment requests from processing to completed
-curl http://localhost:8095/fulfillment/sample/complete
+http http://localhost:8095/fulfillment/sample/complete
 ```
 
 ## Container Infrastructure
 
 ```text
 CONTAINER ID        IMAGE                            COMMAND                  CREATED             STATUS              PORTS                                                NAMES
-6079603c5d92        openjdk:8u151-jdk-alpine3.7      "sleep 6000"             4 hours ago         Up About an hour                                                         kafka-docker_testapp_1
 df8914058cbb        hlebalbau/kafka-manager:latest   "/kafka-manager/bin/…"   4 hours ago         Up 4 hours          0.0.0.0:9000->9000/tcp                               kafka-docker_kafka_manager_1
 5cd8f61330e0        wurstmeister/kafka:latest        "start-kafka.sh"         4 hours ago         Up 4 hours          0.0.0.0:9092->9092/tcp                               kafka-docker_kafka_1
 497901621c7d        mongo:latest                     "docker-entrypoint.s…"   4 hours ago         Up 4 hours          0.0.0.0:27017->27017/tcp                             kafka-docker_mongo_1
@@ -70,61 +54,53 @@ df8914058cbb        hlebalbau/kafka-manager:latest   "/kafka-manager/bin/…"   
 
 ## Orders Customer Object in MongoDB
 
-`db.customer.accounts.find().pretty();`
+```bash
+docker exec -it kafka-docker_mongo_1 sh
+mongo
+db.customer.accounts.find().pretty()
+db.customer.orders.remove({})
+```
 
 ```bson
 {
-	"_id" : ObjectId("5b0c54e2be41760051d00383"),
+	"_id" : ObjectId("5b18661ebe417602a48132ed"),
 	"name" : {
-		"title" : "Mr.",
-		"firstName" : "John",
-		"middleName" : "S.",
-		"lastName" : "Doe",
-		"suffix" : "Jr."
+		"title" : "Ms.",
+		"firstName" : "Susan",
+		"lastName" : "Blackstone"
 	},
 	"contact" : {
-		"primaryPhone" : "555-666-7777",
-		"secondaryPhone" : "555-444-9898",
-		"email" : "john.doe@internet.com"
+		"primaryPhone" : "433-544-6555",
+		"secondaryPhone" : "223-445-6767",
+		"email" : "susan.m.blackstone@emailisus.com"
 	},
 	"addresses" : [
 		{
 			"type" : "BILLING",
-			"description" : "My cc billing address",
-			"address1" : "123 Oak Street",
-			"city" : "Sunrise",
-			"state" : "CA",
-			"postalCode" : "12345-6789"
+			"description" : "My CC billing address",
+			"address1" : "33 Oak Avenue",
+			"city" : "Nowhere",
+			"state" : "VT",
+			"postalCode" : "444556-9090"
 		},
 		{
 			"type" : "SHIPPING",
-			"description" : "My home address",
-			"address1" : "123 Oak Street",
-			"city" : "Sunrise",
-			"state" : "CA",
-			"postalCode" : "12345-6789"
+			"description" : "Home Sweet Home",
+			"address1" : "33 Oak Avenue",
+			"city" : "Nowhere",
+			"state" : "VT",
+			"postalCode" : "444556-9090"
 		}
 	],
 	"creditCards" : [
 		{
 			"type" : "PRIMARY",
-			"description" : "VISA",
-			"number" : "1234-6789-0000-0000",
-			"expiration" : "6/19",
-			"nameOnCard" : "John S. Doe"
-		},
-		{
-			"type" : "ALTERNATE",
-			"description" : "Corporate American Express",
-			"number" : "9999-8888-7777-6666",
-			"expiration" : "3/20",
-			"nameOnCard" : "John Doe"
+			"description" : "Master Card",
+			"number" : "4545-5656-7878-9090",
+			"expiration" : "4/19",
+			"nameOnCard" : "Susan M. Blackstone"
 		}
 	],
-	"credentials" : {
-		"username" : "johndoe37",
-		"password" : "skd837#$hfh485&"
-	},
 	"_class" : "com.storefront.model.Customer"
 }
 ```
@@ -153,12 +129,12 @@ kafka-console-consumer.sh \
 Kafka Consumer Output
 
 ```text
-{"id":"5b135dd0be4176000cf30282","name":{"title":"Mr.","firstName":"John","middleName":"S.","lastName":"Doe","suffix":"Jr."},"contact":{"primaryPhone":"555-666-7777","secondaryPhone":"555-444-9898","email":"john.doe@internet.com"},"addresses":[{"type":"BILLING","description":"My cc billing address","address1":"123 Oak Street","address2":null,"city":"Sunrise","state":"CA","postalCode":"12345-6789"},{"type":"SHIPPING","description":"My home address","address1":"123 Oak Street","address2":null,"city":"Sunrise","state":"CA","postalCode":"12345-6789"}],"creditCards":[{"type":"PRIMARY","description":"VISA","number":"1234-6789-0000-0000","expiration":"6/19","nameOnCard":"John S. Doe"},{"type":"ALTERNATE","description":"Corporate American Express","number":"9999-8888-7777-6666","expiration":"3/20","nameOnCard":"John Doe"}]}
-{"id":"5b135dd0be4176000cf30283","name":{"title":"Ms.","firstName":"Mary","middleName":null,"lastName":"Smith","suffix":null},"contact":{"primaryPhone":"456-789-0001","secondaryPhone":"456-222-1111","email":"marysmith@yougotmail.com"},"addresses":[{"type":"BILLING","description":"My CC billing address","address1":"1234 Main Street","address2":null,"city":"Anywhere","state":"NY","postalCode":"45455-66677"},{"type":"SHIPPING","description":"Home Sweet Home","address1":"1234 Main Street","address2":null,"city":"Anywhere","state":"NY","postalCode":"45455-66677"}],"creditCards":[{"type":"PRIMARY","description":"VISA","number":"4545-6767-8989-0000","expiration":"7/21","nameOnCard":"Mary Smith"}]}
-{"id":"5b135dd0be4176000cf30284","name":{"title":"Ms.","firstName":"Susan","middleName":null,"lastName":"Blackstone","suffix":null},"contact":{"primaryPhone":"433-544-6555","secondaryPhone":"223-445-6767","email":"susan.m.blackstone@emailisus.com"},"addresses":[{"type":"BILLING","description":"My CC billing address","address1":"33 Oak Avenue","address2":null,"city":"Nowhere","state":"VT","postalCode":"444556-9090"},{"type":"SHIPPING","description":"Home Sweet Home","address1":"33 Oak Avenue","address2":null,"city":"Nowhere","state":"VT","postalCode":"444556-9090"}],"creditCards":[{"type":"PRIMARY","description":"Master Card","number":"4545-5656-7878-9090","expiration":"4/19","nameOnCard":"Susan M. Blackstone"}]}
+{"id":"5b188580a8d0560aab7593f4","name":{"title":"Mr.","firstName":"John","middleName":"S.","lastName":"Doe","suffix":"Jr."},"contact":{"primaryPhone":"555-666-7777","secondaryPhone":"555-444-9898","email":"john.doe@internet.com"},"addresses":[{"type":"BILLING","description":"My cc billing address","address1":"123 Oak Street","address2":null,"city":"Sunrise","state":"CA","postalCode":"12345-6789"},{"type":"SHIPPING","description":"My home address","address1":"123 Oak Street","address2":null,"city":"Sunrise","state":"CA","postalCode":"12345-6789"}],"creditCards":[{"type":"PRIMARY","description":"VISA","number":"1234-6789-0000-0000","expiration":"6/19","nameOnCard":"John S. Doe"},{"type":"ALTERNATE","description":"Corporate American Express","number":"9999-8888-7777-6666","expiration":"3/20","nameOnCard":"John Doe"}]}
+{"id":"5b188580a8d0560aab7593f5","name":{"title":"Ms.","firstName":"Mary","middleName":null,"lastName":"Smith","suffix":null},"contact":{"primaryPhone":"456-789-0001","secondaryPhone":"456-222-1111","email":"marysmith@yougotmail.com"},"addresses":[{"type":"BILLING","description":"My CC billing address","address1":"1234 Main Street","address2":null,"city":"Anywhere","state":"NY","postalCode":"45455-66677"},{"type":"SHIPPING","description":"Home Sweet Home","address1":"1234 Main Street","address2":null,"city":"Anywhere","state":"NY","postalCode":"45455-66677"}],"creditCards":[{"type":"PRIMARY","description":"VISA","number":"4545-6767-8989-0000","expiration":"7/21","nameOnCard":"Mary Smith"}]}
+{"id":"5b188580a8d0560aab7593f6","name":{"title":"Ms.","firstName":"Susan","middleName":null,"lastName":"Blackstone","suffix":null},"contact":{"primaryPhone":"433-544-6555","secondaryPhone":"223-445-6767","email":"susan.m.blackstone@emailisus.com"},"addresses":[{"type":"BILLING","description":"My CC billing address","address1":"33 Oak Avenue","address2":null,"city":"Nowhere","state":"VT","postalCode":"444556-9090"},{"type":"SHIPPING","description":"Home Sweet Home","address1":"33 Oak Avenue","address2":null,"city":"Nowhere","state":"VT","postalCode":"444556-9090"}],"creditCards":[{"type":"PRIMARY","description":"Master Card","number":"4545-5656-7878-9090","expiration":"4/19","nameOnCard":"Susan M. Blackstone"}]}
 ```
 
-Create `accounts.customer.change` topic
+To manually create `accounts.customer.change` topic
 
 ```bash
 kafka-topics.sh --create \
@@ -168,6 +144,8 @@ kafka-topics.sh --create \
 ```
 
 Clear messages from `accounts.customer.change` topic
+
+Delete the topic from the Kafka Manager UI, or from the commandline:
 
 ```bash
 kafka-configs.sh --zookeeper zookeeper:2181 \
