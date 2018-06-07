@@ -1,7 +1,7 @@
 package com.storefront.config;
 
 import com.storefront.kafka.Sender;
-import com.storefront.model.Customer;
+import com.storefront.model.CustomerChangeEvent;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,13 +35,13 @@ public class SenderConfig {
     }
 
     @Bean
-    public ProducerFactory<String, Customer> producerFactory() {
+    public ProducerFactory<String, CustomerChangeEvent> producerFactory() {
 
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
     @Bean
-    public KafkaTemplate<String, Customer> kafkaTemplate() {
+    public KafkaTemplate<String, CustomerChangeEvent> kafkaTemplate() {
 
         return new KafkaTemplate<>(producerFactory());
     }

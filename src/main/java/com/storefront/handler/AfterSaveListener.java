@@ -2,6 +2,7 @@ package com.storefront.handler;
 
 import com.storefront.kafka.Sender;
 import com.storefront.model.Customer;
+import com.storefront.model.CustomerChangeEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +30,13 @@ public class AfterSaveListener extends AbstractMongoEventListener<Customer> {
 
         log.info("onAfterSave event='{}'", event);
         Customer customer = event.getSource();
-        sender.send(topic, customer);
+
+        CustomerChangeEvent customerChangeEvent = new CustomerChangeEvent();
+        customerChangeEvent.setId(customer.getId());
+        customerChangeEvent.setName(customer.getName());
+        customerChangeEvent.setContact(customer.getContact());
+        customerChangeEvent.setAddresses(customer.getAddresses());
+
+        sender.send(topic, customerChangeEvent);
     }
 }

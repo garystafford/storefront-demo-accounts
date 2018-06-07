@@ -15,8 +15,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 //@Import(SpringDataRestConfiguration.class)
 public class SwaggerConfig {
+
     @Bean
     public Docket api() {
+
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.any())
@@ -26,6 +28,7 @@ public class SwaggerConfig {
     }
 
     private ApiInfo apiInfo() {
+
         return new ApiInfoBuilder()
                 .title("Storefront Demo - Accounts API")
                 .description("Spring Boot demo application, backed by MongoDB and Kafka.")
