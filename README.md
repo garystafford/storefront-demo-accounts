@@ -23,23 +23,26 @@ I develop and debug directly from JetBrains IntelliJ. The default Spring profile
 Create sample data for each service. Requires Kafka is running.
 
 ```bash
-# accounts: create sample customer accounts
+# accounts - create sample customer accounts
 http http://localhost:8085/customers/sample
 
-# orders: create sample products
-http http://localhost:8090/products/sample
-
-# orders: add sample orders to each customer
+# orders - add sample orders to each customer
 http http://localhost:8090/customers/sample/orders
 
-# orders: send approved orders to fulfillment service
+# orders - send approved orders to fulfillment service
 http http://localhost:8090/customers/fulfill
 
-# fulfillment: change fulfillment requests from approved to processing
+# fulfillment - change fulfillment requests from approved to processing
 http http://localhost:8095/fulfillment/sample/process
 
-# fulfillment: change fulfillment requests from processing to completed
-http http://localhost:8095/fulfillment/sample/complete
+# fulfillment - change fulfillment requests from processing to shipping
+http http://localhost:8095/fulfillment/sample/ship
+
+# fulfillment - change fulfillment requests from processing to in transit
+http http://localhost:8095/fulfillment/sample/in-transit
+
+# fulfillment - change fulfillment requests from in transit to in received
+http http://localhost:8095/fulfillment/sample/receive
 ```
 
 ## Container Infrastructure
@@ -54,7 +57,7 @@ df8914058cbb        hlebalbau/kafka-manager:latest   "/kafka-manager/bin/…"   
 
 ## Orders Customer Object in MongoDB
 
-```bash
+```text
 docker exec -it kafka-docker_mongo_1 sh
 mongo
 db.customer.accounts.find().pretty()
@@ -129,9 +132,9 @@ kafka-console-consumer.sh \
 Kafka Consumer Output
 
 ```text
-{"id":"5b188580a8d0560aab7593f4","name":{"title":"Mr.","firstName":"John","middleName":"S.","lastName":"Doe","suffix":"Jr."},"contact":{"primaryPhone":"555-666-7777","secondaryPhone":"555-444-9898","email":"john.doe@internet.com"},"addresses":[{"type":"BILLING","description":"My cc billing address","address1":"123 Oak Street","address2":null,"city":"Sunrise","state":"CA","postalCode":"12345-6789"},{"type":"SHIPPING","description":"My home address","address1":"123 Oak Street","address2":null,"city":"Sunrise","state":"CA","postalCode":"12345-6789"}],"creditCards":[{"type":"PRIMARY","description":"VISA","number":"1234-6789-0000-0000","expiration":"6/19","nameOnCard":"John S. Doe"},{"type":"ALTERNATE","description":"Corporate American Express","number":"9999-8888-7777-6666","expiration":"3/20","nameOnCard":"John Doe"}]}
-{"id":"5b188580a8d0560aab7593f5","name":{"title":"Ms.","firstName":"Mary","middleName":null,"lastName":"Smith","suffix":null},"contact":{"primaryPhone":"456-789-0001","secondaryPhone":"456-222-1111","email":"marysmith@yougotmail.com"},"addresses":[{"type":"BILLING","description":"My CC billing address","address1":"1234 Main Street","address2":null,"city":"Anywhere","state":"NY","postalCode":"45455-66677"},{"type":"SHIPPING","description":"Home Sweet Home","address1":"1234 Main Street","address2":null,"city":"Anywhere","state":"NY","postalCode":"45455-66677"}],"creditCards":[{"type":"PRIMARY","description":"VISA","number":"4545-6767-8989-0000","expiration":"7/21","nameOnCard":"Mary Smith"}]}
-{"id":"5b188580a8d0560aab7593f6","name":{"title":"Ms.","firstName":"Susan","middleName":null,"lastName":"Blackstone","suffix":null},"contact":{"primaryPhone":"433-544-6555","secondaryPhone":"223-445-6767","email":"susan.m.blackstone@emailisus.com"},"addresses":[{"type":"BILLING","description":"My CC billing address","address1":"33 Oak Avenue","address2":null,"city":"Nowhere","state":"VT","postalCode":"444556-9090"},{"type":"SHIPPING","description":"Home Sweet Home","address1":"33 Oak Avenue","address2":null,"city":"Nowhere","state":"VT","postalCode":"444556-9090"}],"creditCards":[{"type":"PRIMARY","description":"Master Card","number":"4545-5656-7878-9090","expiration":"4/19","nameOnCard":"Susan M. Blackstone"}]}
+{"id":"5b1be010a8d05620a3d7efe8","name":{"title":"Mr.","firstName":"John","middleName":"S.","lastName":"Doe","suffix":"Jr."},"contact":{"primaryPhone":"555-666-7777","secondaryPhone":"555-444-9898","email":"john.doe@internet.com"},"addresses":[{"type":"BILLING","description":"My cc billing address","address1":"123 Oak Street","address2":null,"city":"Sunrise","state":"CA","postalCode":"12345-6789"},{"type":"SHIPPING","description":"My home address","address1":"123 Oak Street","address2":null,"city":"Sunrise","state":"CA","postalCode":"12345-6789"}]}
+{"id":"5b1be010a8d05620a3d7efe9","name":{"title":"Ms.","firstName":"Mary","middleName":null,"lastName":"Smith","suffix":null},"contact":{"primaryPhone":"456-789-0001","secondaryPhone":"456-222-1111","email":"marysmith@yougotmail.com"},"addresses":[{"type":"BILLING","description":"My CC billing address","address1":"1234 Main Street","address2":null,"city":"Anywhere","state":"NY","postalCode":"45455-66677"},{"type":"SHIPPING","description":"Home Sweet Home","address1":"1234 Main Street","address2":null,"city":"Anywhere","state":"NY","postalCode":"45455-66677"}]}
+{"id":"5b1be010a8d05620a3d7efea","name":{"title":"Ms.","firstName":"Susan","middleName":null,"lastName":"Blackstone","suffix":null},"contact":{"primaryPhone":"433-544-6555","secondaryPhone":"223-445-6767","email":"susan.m.blackstone@emailisus.com"},"addresses":[{"type":"BILLING","description":"My CC billing address","address1":"33 Oak Avenue","address2":null,"city":"Nowhere","state":"VT","postalCode":"444556-9090"},{"type":"SHIPPING","description":"Home Sweet Home","address1":"33 Oak Avenue","address2":null,"city":"Nowhere","state":"VT","postalCode":"444556-9090"}]}
 ```
 
 To manually create `accounts.customer.change` topic
