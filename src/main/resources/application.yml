@@ -1,6 +1,12 @@
 server:
   port: 8085
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
 spring:
+  application:
+    name: accounts
   data:
     mongodb:
       uri: mongodb://localhost:27017/accounts
