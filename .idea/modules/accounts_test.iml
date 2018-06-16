@@ -20,15 +20,13 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="accounts_main" />
-    <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:2.0.0.RC2" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-data-rest:2.0.2.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-starter-eureka-server:" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-web:2.0.2.RELEASE" level="project" />
-    <orderEntry type="library" name="Gradle: io.springfox:springfox-swagger-ui:2.9.0" level="project" />
+    <orderEntry type="library" name="Gradle: javax.validation:validation-api:2.0.1.Final" level="project" />
     <orderEntry type="library" name="Gradle: io.springfox:springfox-data-rest:2.9.0" level="project" />
     <orderEntry type="library" name="Gradle: io.springfox:springfox-swagger2:2.9.0" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-starter-sleuth:2.0.0.RC2" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-actuator:2.0.2.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: io.reactivex:rxnetty-contexts:0.4.9" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-data-mongodb:2.0.2.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.kafka:spring-kafka:2.1.6.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-test:2.0.2.RELEASE" level="project" />
@@ -36,7 +34,7 @@
     <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-starter-netflix-ribbon:2.0.0.RC2" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-starter-netflix-archaius:2.0.0.RC2" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-starter:2.0.0.RC2" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-netflix-eureka-client:2.0.0.RC2" level="project" />
+    <orderEntry type="library" name="Gradle: io.springfox:springfox-swagger-common:2.9.0" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-netflix-core:2.0.0.RC2" level="project" />
     <orderEntry type="library" name="Gradle: com.netflix.eureka:eureka-core:1.9.0" level="project" />
     <orderEntry type="library" name="Gradle: com.netflix.ribbon:ribbon-eureka:2.2.5" level="project" />
@@ -52,7 +50,7 @@
     <orderEntry type="library" name="Gradle: org.springframework.hateoas:spring-hateoas:0.24.0.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-webmvc:5.0.6.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-web:5.0.6.RELEASE" level="project" />
-    <orderEntry type="library" name="Gradle: io.springfox:springfox-swagger-common:2.9.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-netflix-eureka-client:2.0.0.RC2" level="project" />
     <orderEntry type="library" name="Gradle: io.springfox:springfox-spring-web:2.9.0" level="project" />
     <orderEntry type="library" name="Gradle: com.netflix.netflix-commons:netflix-eventbus:0.3.0" level="project" />
     <orderEntry type="library" name="Gradle: com.netflix.ribbon:ribbon:2.2.5" level="project" />
@@ -84,7 +82,7 @@
     <orderEntry type="library" name="Gradle: com.yammer.metrics:metrics-core:2.2.0" level="project" />
     <orderEntry type="library" name="Gradle: com.101tec:zkclient:0.10" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.zookeeper:zookeeper:3.4.10" level="project" />
-    <orderEntry type="library" name="Gradle: io.reactivex:rxnetty-contexts:0.4.9" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-actuator:2.0.2.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: io.reactivex:rxnetty:0.4.9" level="project" />
     <orderEntry type="library" name="Gradle: com.netflix.netflix-commons:netflix-commons-util:0.3.0" level="project" />
     <orderEntry type="library" name="Gradle: com.netflix.netflix-commons:netflix-statistics:0.1.1" level="project" />
@@ -148,7 +146,7 @@
     <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-websocket:8.5.31" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-core:8.5.31" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.tomcat.embed:tomcat-embed-el:8.5.31" level="project" />
-    <orderEntry type="library" name="Gradle: javax.validation:validation-api:2.0.1.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.springfox:springfox-swagger-ui:2.9.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jboss.logging:jboss-logging:3.3.2.Final" level="project" />
     <orderEntry type="library" name="Gradle: org.aspectj:aspectjweaver:1.8.13" level="project" />
     <orderEntry type="library" name="Gradle: org.aspectj:aspectjrt:1.8.13" level="project" />
@@ -211,6 +209,8 @@
     <orderEntry type="library" name="Gradle: io.netty:netty-transport:4.1.24.Final" level="project" />
     <orderEntry type="library" name="Gradle: io.netty:netty-buffer:4.1.24.Final" level="project" />
     <orderEntry type="library" name="Gradle: io.netty:netty-resolver:4.1.24.Final" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:2.0.0.RC2" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-data-rest:2.0.2.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: io.netty:netty-common:4.1.24.Final" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="accounts_main" />
