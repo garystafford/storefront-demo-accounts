@@ -132,7 +132,7 @@ Output from Kafka container using the following command.
 
 ```bash
 kafka-console-consumer.sh \
-  --bootstrap-server localhost:9092 \
+  --bootstrap-server kafka:9092 \
   --from-beginning --topic accounts.customer.change
 ```
 
