@@ -1,11 +1,10 @@
 plugins {
-    id 'com.github.ben-manes.versions' version '0.17.0'
+    id 'com.github.ben-manes.versions' version '0.19.0'
     id 'io.spring.dependency-management' version '1.0.5.RELEASE'
     id 'org.sonarqube' version '2.6.2'
-    id 'org.springframework.boot' version '2.0.2.RELEASE'
+    id 'org.springframework.boot' version '2.0.3.RELEASE'
     id 'idea'
     id 'java'
-
 }
 
 sourceCompatibility = 1.8
@@ -22,10 +21,9 @@ bootJar {
 }
 
 ext {
-    springBootVersion = '2.0.2.RELEASE'
-    springKafkaVersion = '2.1.6.RELEASE'
+    springBootVersion = '2.0.3.RELEASE'
+    springKafkaVersion = '2.1.7.RELEASE'
     springFoxVersion = '2.9.0'
-
 }
 
 repositories {
@@ -33,7 +31,6 @@ repositories {
     maven {
         url 'https://repo.spring.io/libs-milestone'
     }
-
 }
 
 dependencyManagement {
@@ -44,18 +41,19 @@ dependencyManagement {
 }
 
 dependencies {
-    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile("io.springfox:springfox-swagger-ui:${springFoxVersion}")
+    compile("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
     compile("io.springfox:springfox-data-rest:${springFoxVersion}")
+    compile("io.springfox:springfox-swagger-ui:${springFoxVersion}")
     compile("io.springfox:springfox-swagger2:${springFoxVersion}")
-    compile("org.springframework.cloud:spring-cloud-starter-sleuth:2.0.0.RC2")
-    compile("org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-hateoas:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    compile("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+    compile("org.springframework.cloud:spring-cloud-starter-sleuth:2.0.0.RC2")
     compile("org.springframework.kafka:spring-kafka:${springKafkaVersion}")
-    compileOnly("org.projectlombok:lombok:1.16.22")
+    compileOnly("org.projectlombok:lombok:1.18.0")
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
     testCompile("org.springframework.kafka:spring-kafka-test:${springKafkaVersion}")
-    testCompile('org.springframework.cloud:spring-cloud-starter-eureka-server')
 }
