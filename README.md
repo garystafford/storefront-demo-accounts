@@ -30,7 +30,7 @@ http http://localhost:8085/customers/sample
 http http://localhost:8090/customers/sample/orders
 
 # orders - send approved orders to fulfillment service
-http http://localhost:8090/customers/fulfill
+http http://localhost:8090/customers/sample/fulfill
 
 # fulfillment - change fulfillment requests from approved to processing
 http http://localhost:8095/fulfillment/sample/process
