@@ -1,8 +1,7 @@
 plugins {
-    id 'com.github.ben-manes.versions' version '0.19.0'
-    id 'io.spring.dependency-management' version '1.0.5.RELEASE'
-    id 'org.sonarqube' version '2.6.2'
-    id 'org.springframework.boot' version '2.0.3.RELEASE'
+    id 'com.github.ben-manes.versions' version '0.20.0'
+    id 'io.spring.dependency-management' version '1.0.6.RELEASE'
+    id 'org.springframework.boot' version '2.1.1.RELEASE'
     id 'idea'
     id 'java'
 }
@@ -10,20 +9,19 @@ plugins {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-def major = '1'
+def major = '2'
 def minor = '0'
 def patch = System.env.BUILD_NUMBER ?: '0'
-def artifact_version = major + '.' + minor + '.' + patch
-version = artifact_version
+version = major + '.' + minor + '.' + patch
 
 bootJar {
     launchScript()
 }
 
 ext {
-    springBootVersion = '2.0.3.RELEASE'
-    springKafkaVersion = '2.1.7.RELEASE'
-    springFoxVersion = '2.9.0'
+    springBootVersion = '2.1.1.RELEASE'
+    springKafkaVersion = '2.2.2.RELEASE'
+    springFoxVersion = '2.9.2'
 }
 
 repositories {
@@ -35,13 +33,11 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom 'org.springframework.cloud:spring-cloud-sleuth:2.0.0.RC2'
         mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Finchley.RC2'
     }
 }
 
 dependencies {
-    compile("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
     compile("io.springfox:springfox-data-rest:${springFoxVersion}")
     compile("io.springfox:springfox-swagger-ui:${springFoxVersion}")
     compile("io.springfox:springfox-swagger2:${springFoxVersion}")
@@ -50,10 +46,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-hateoas:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
-    compile("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
-    compile("org.springframework.cloud:spring-cloud-starter-sleuth:2.0.0.RC2")
     compile("org.springframework.kafka:spring-kafka:${springKafkaVersion}")
-    compileOnly("org.projectlombok:lombok:1.18.0")
+    compileOnly("org.projectlombok:lombok:1.18.4")
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
     testCompile("org.springframework.kafka:spring-kafka-test:${springKafkaVersion}")
 }
