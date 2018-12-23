@@ -5,7 +5,7 @@ spring:
     name: accounts
   data:
     mongodb:
-      uri: mongodb+srv://demo_user:LatURYb8do^ALs@gke-cluster-0-xebnu.gcp.mongodb.net/accounts?retryWrites=true
+      uri: mongodb://localhost:27017/accounts
   kafka:
     bootstrap-servers: 127.0.0.1:9092
     topic:
@@ -13,13 +13,6 @@ spring:
     consumer:
       group-id: accounts
       auto-offset-reset: earliest
-    properties:
-      ssl.endpoint.identification.algorithm: https
-      sasl.mechanism: PLAIN
-      request.timeout.ms: 20000
-      retry.backoff.ms: 500
-      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="QQXEUA5KVA2OOTD6" password="i7EnYDr3RD7zoRoCCmZyPS8ieBmEZi9doe+2YoXYwCH55jgktQWU5CZreCyySXW0";
-      security.protocol: SASL_SSL
 management:
   endpoints:
     web:

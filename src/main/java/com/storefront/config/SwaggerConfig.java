@@ -39,7 +39,7 @@ public class SwaggerConfig {
                         "garystafford@rochester.rr.com"))
                 .license("Apache License Version 2.0")
                 .licenseUrl("https://github.com/garystafford/storefront-demo-accounts/blob/master/LICENSE")
-                .version("1.0.0")
+                .version("2.1.0")
                 .build();
     }
 }

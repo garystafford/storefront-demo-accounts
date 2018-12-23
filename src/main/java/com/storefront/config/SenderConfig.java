@@ -54,6 +54,7 @@ public class SenderConfig {
         props.put("retry.backoff.ms", retryBackoffMs);
         props.put("security.protocol", securityProtocol);
         props.put("sasl.jaas.config", saslJaasConfig);
+
         return props;
     }
 
