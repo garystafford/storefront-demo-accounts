@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "spring.kafka.topic.accounts-customer",
+      "type": "java.lang.String",
+      "description": "Description for spring.kafka.topic.accounts-customer."
+    }
+  ]
+}

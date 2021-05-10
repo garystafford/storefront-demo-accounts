@@ -7,9 +7,9 @@ spring:
     name: accounts
   data:
     mongodb:
-      uri: mongodb://localhost:27017/accounts
+      uri: mongodb://mongo:27017/accounts
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: kafka:9092
     topic:
       accounts-customer: accounts.customer.change
     consumer:
@@ -22,12 +22,14 @@ management:
         include: '*'
 logging:
   level:
-    root: DEBUG
+    root: INFO
 ---
 server:
   port: 8080
-spring:
-  profiles: gke
 logging:
   level:
     root: INFO
+spring:
+  config:
+    activate:
+      on-profile: gke

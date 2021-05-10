@@ -19,7 +19,7 @@ import java.util.Map;
 @RequestMapping("/customers")
 public class CustomerController {
 
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
     @Autowired
     public CustomerController(CustomerRepository customerRepository) {
@@ -33,7 +33,7 @@ public class CustomerController {
         customerRepository.deleteAll();
         customerRepository.saveAll(SampleData.createSampleCustomers());
 
-        return new ResponseEntity("Sample customer accounts created", HttpStatus.CREATED);
+        return new ResponseEntity<>("Sample customer accounts created", HttpStatus.CREATED);
     }
 
     @RequestMapping(path = "/summary", method = RequestMethod.GET)

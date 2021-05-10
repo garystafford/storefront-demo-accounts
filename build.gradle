@@ -1,16 +1,16 @@
 plugins {
-    id 'com.github.ben-manes.versions' version '0.20.0'
-    id 'io.spring.dependency-management' version '1.0.6.RELEASE'
-    id 'org.springframework.boot' version '2.1.1.RELEASE'
-    id 'idea'
+    id 'com.github.ben-manes.versions' version '0.38.0'
+    id 'org.springframework.boot' version '2.4.5'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'io.freefair.lombok' version '6.0.0-m2'
     id 'java'
+    id 'idea'
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = '11'
 
-def major = '2'
-def minor = '1'
+def major = '3'
+def minor = '0'
 def patch = System.env.BUILD_NUMBER ?: '0'
 version = major + '.' + minor + '.' + patch
 
@@ -18,36 +18,51 @@ bootJar {
     launchScript()
 }
 
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
 ext {
-    springBootVersion = '2.1.1.RELEASE'
-    springKafkaVersion = '2.2.2.RELEASE'
-    springFoxVersion = '2.9.2'
+    springBootVersion = '2.4.5'
+    springKafkaVersion = '2.7.0'
+    springFoxVersion = '3.0.0'
+//    projectLombok = '1.18.20'
 }
 
 repositories {
-    jcenter()
-    maven {
-        url 'https://repo.spring.io/libs-milestone'
-    }
+    mavenCentral()
 }
 
 dependencyManagement {
     imports {
-        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Finchley.RC2'
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Hoxton.RELEASE'
     }
 }
 
 dependencies {
-    compile("io.springfox:springfox-data-rest:${springFoxVersion}")
-    compile("io.springfox:springfox-swagger-ui:${springFoxVersion}")
-    compile("io.springfox:springfox-swagger2:${springFoxVersion}")
-    compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-hateoas:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
-    compile("org.springframework.kafka:spring-kafka:${springKafkaVersion}")
-    compileOnly("org.projectlombok:lombok:1.18.4")
-    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
-    testCompile("org.springframework.kafka:spring-kafka-test:${springKafkaVersion}")
+    implementation "io.springfox:springfox-data-rest:${springFoxVersion}"
+    implementation "io.springfox:springfox-boot-starter:${springFoxVersion}"
+    implementation "io.springfox:springfox-swagger-ui:${springFoxVersion}"
+
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+    implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-data-rest:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-hateoas:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    implementation "org.springframework.kafka:spring-kafka:$springKafkaVersion"
+
+//    compileOnly "org.projectlombok:lombok:${projectLombok}"
+//    annotationProcessor "org.projectlombok:lombok:${projectLombok}"
+//    testCompileOnly "org.projectlombok:lombok:${projectLombok}"
+//    testAnnotationProcessor "org.projectlombok:lombok:${projectLombok}"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+    testImplementation "org.springframework.kafka:spring-kafka-test:${springKafkaVersion}"
+}
+
+test {
+    useJUnitPlatform()
 }
