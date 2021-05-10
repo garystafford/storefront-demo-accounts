@@ -33,16 +33,16 @@ http http://localhost:8090/customers/sample/orders
 http http://localhost:8090/customers/sample/fulfill
 
 # fulfillment - change fulfillment requests from approved to processing
-http http://localhost:8095/fulfillment/sample/process
+http http://localhost:8095/fulfillments/sample/process
 
 # fulfillment - change fulfillment requests from processing to shipping
-http http://localhost:8095/fulfillment/sample/ship
+http http://localhost:8095/fulfillments/sample/ship
 
 # fulfillment - change fulfillment requests from processing to in transit
-http http://localhost:8095/fulfillment/sample/in-transit
+http http://localhost:8095/fulfillments/sample/in-transit
 
 # fulfillment - change fulfillment requests from in transit to in received
-http http://localhost:8095/fulfillment/sample/receive
+http http://localhost:8095/fulfillments/sample/receive
 ```
 
 ## Container Infrastructure
