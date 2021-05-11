@@ -29,6 +29,7 @@ ext {
     set('springBootVersion', '2.4.5')
     set('springKafkaVersion', '2.7.0')
     set('springFoxVersion', '3.0.0')
+    set('springCloudEureka', '3.0.2')
 }
 
 repositories {
@@ -53,6 +54,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-hateoas:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     implementation "org.springframework.kafka:spring-kafka:$springKafkaVersion"
+    implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:${springCloudEureka}"
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     testImplementation "org.springframework.kafka:spring-kafka-test:${springKafkaVersion}"
