@@ -5,15 +5,13 @@
       <configuration>
         <webroots />
         <sourceRoots>
-          <root url="file://$MODULE_DIR$/../../src/main/java" />
           <root url="file://$MODULE_DIR$/../../src/main/resources" />
+          <root url="file://$MODULE_DIR$/../../src/main/java" />
         </sourceRoots>
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">
-      <configuration>
-        <fileset id="spring_boot_com.storefront.Application" profiles="gke" autodetected="true" />
-      </configuration>
+      <configuration />
     </facet>
   </component>
   <component name="NewModuleRootManager">
@@ -39,6 +37,9 @@
     <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-web:2.4.5" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.kafka:spring-kafka:2.7.0" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-starter-sleuth:3.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-sleuth-zipkin:3.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: io.micrometer:micrometer-registry-prometheus:1.7.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Gradle: org.projectlombok:lombok:1.18.20" level="project" />
     <orderEntry type="library" name="Gradle: io.springfox:springfox-oas:3.0.0" level="project" />
     <orderEntry type="library" name="Gradle: io.springfox:springfox-swagger2:3.0.0" level="project" />
@@ -72,6 +73,18 @@
     <orderEntry type="library" name="Gradle: com.netflix.eureka:eureka-client:1.10.11" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-starter:3.0.2" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-netflix-eureka-client:3.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.boot:spring-boot-starter-aop:2.4.5" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-sleuth-autoconfigure:3.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-sleuth-brave:3.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-sleuth-instrumentation:3.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-commons:3.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.reporter2:zipkin-reporter-brave:2.16.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.reporter2:zipkin-sender-kafka:2.16.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.reporter2:zipkin-sender-activemq-client:2.16.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.reporter2:zipkin-sender-amqp-client:2.16.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.reporter2:zipkin-reporter:2.16.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.zipkin2:zipkin:2.23.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.prometheus:simpleclient_common:0.10.0" level="project" />
     <orderEntry type="library" name="Gradle: io.springfox:springfox-swagger-common:3.0.0" level="project" />
     <orderEntry type="library" name="Gradle: io.springfox:springfox-spring-web:3.0.0" level="project" />
     <orderEntry type="library" name="Gradle: io.springfox:springfox-schema:3.0.0" level="project" />
@@ -124,8 +137,25 @@
     <orderEntry type="library" name="Gradle: com.google.inject:guice:4.1.0" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.11.4" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-context:3.0.2" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-commons:3.0.2" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework.security:spring-security-rsa:1.0.9.RELEASE" level="project" />
+    <orderEntry type="library" name="Gradle: org.aspectj:aspectjweaver:1.9.6" level="project" />
+    <orderEntry type="library" name="Gradle: org.aspectj:aspectjrt:1.9.6" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.brave:brave-context-slf4j:5.13.2" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.brave:brave-instrumentation-spring-rabbit:5.13.2" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.brave:brave-instrumentation-kafka-streams:5.13.2" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.brave:brave-instrumentation-kafka-clients:5.13.2" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.brave:brave-instrumentation-jms:5.13.2" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.brave:brave-instrumentation-messaging:5.13.2" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.brave:brave-instrumentation-rpc:5.13.2" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.brave:brave-instrumentation-httpclient:5.13.2" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.brave:brave-instrumentation-httpasyncclient:5.13.2" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.brave:brave-instrumentation-mongodb:5.13.2" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.aws:brave-propagation-aws:0.21.3" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.brave:brave:5.13.2" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.reporter2:zipkin-reporter-metrics-micrometer:2.16.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.cloud:spring-cloud-sleuth-api:3.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.springframework.security:spring-security-crypto:5.4.6" level="project" />
+    <orderEntry type="library" name="Gradle: io.prometheus:simpleclient:0.10.0" level="project" />
     <orderEntry type="library" name="Gradle: io.github.classgraph:classgraph:4.8.83" level="project" />
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-classic:1.2.3" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-to-slf4j:2.13.3" level="project" />
@@ -146,8 +176,8 @@
     <orderEntry type="library" name="Gradle: commons-lang:commons-lang:2.6" level="project" />
     <orderEntry type="library" name="Gradle: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" name="Gradle: aopalliance:aopalliance:1.0" level="project" />
-    <orderEntry type="library" name="Gradle: org.springframework.security:spring-security-crypto:5.4.6" level="project" />
     <orderEntry type="library" name="Gradle: org.bouncycastle:bcpkix-jdk15on:1.64" level="project" />
+    <orderEntry type="library" name="Gradle: io.zipkin.brave:brave-instrumentation-http:5.13.2" level="project" />
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.2.3" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.logging.log4j:log4j-api:2.13.3" level="project" />
     <orderEntry type="library" name="Gradle: net.minidev:accessors-smart:1.2" level="project" />

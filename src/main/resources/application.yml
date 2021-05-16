@@ -3,7 +3,6 @@ server:
 eureka:
   instance:
     hostname: accounts
-#    prefer-ip-address: true
   client:
     serviceUrl:
       defaultZone: http://eureka:8761/eureka/
@@ -22,6 +21,9 @@ spring:
     consumer:
       group-id: accounts
       auto-offset-reset: earliest
+  zipkin:
+    sender:
+      type: kafka
 management:
   endpoints:
     web:
@@ -31,12 +33,38 @@ logging:
   level:
     root: INFO
 ---
+spring:
+  config:
+    activate:
+      on-profile: local
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/orders
+  kafka:
+    bootstrap-servers: localhost:9092
+server:
+  port: 8085
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+logging:
+  level:
+    root: DEBUG
+---
+spring:
+  config:
+    activate:
+      on-profile: gke
 server:
   port: 8080
 logging:
   level:
     root: INFO
-spring:
-  config:
-    activate:
-      on-profile: gke

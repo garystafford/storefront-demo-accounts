@@ -30,6 +30,8 @@ ext {
     set('springKafkaVersion', '2.7.0')
     set('springFoxVersion', '3.0.0')
     set('springCloudEureka', '3.0.2')
+    set('springCloudSleuth', '3.0.2')
+    set('micrometer', '1.7.0')
 }
 
 repositories {
@@ -56,8 +58,13 @@ dependencies {
     implementation "org.springframework.kafka:spring-kafka:$springKafkaVersion"
     implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:${springCloudEureka}"
 
+    implementation "org.springframework.cloud:spring-cloud-starter-sleuth:${springCloudSleuth}"
+    implementation "org.springframework.cloud:spring-cloud-sleuth-zipkin:${springCloudSleuth}"
+
     testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     testImplementation "org.springframework.kafka:spring-kafka-test:${springKafkaVersion}"
+
+    implementation "io.micrometer:micrometer-registry-prometheus:${micrometer}"
 }
 
 test {

@@ -1,4 +1,4 @@
-# Kafka Traveler Microservices Demo: Accounts
+./gradlew clean build bootRun --args='--spring.profiles.active=local' # Kafka Traveler Microservices Demo: Accounts
 
 ## Accounts Service
 
@@ -15,8 +15,10 @@ For [Kakfa](https://kafka.apache.org/), use [garystafford/kafka-docker](https://
 I develop and debug directly from JetBrains IntelliJ. The default Spring profile will start the three services on different ports.
 
 ```bash
-./gradlew clean build bootRun
+./gradlew clean build bootRun --args='--spring.profiles.active=local'
 ```
+
+Swagger UI: <http://localhost:8085/swagger-ui/index.html>
 
 ## Creating Sample Data
 
