@@ -52,16 +52,19 @@ http http://localhost:8095/fulfillments/sample/receive
 $ docker container ls
 
 ```text
-CONTAINER ID        IMAGE                                        COMMAND                  CREATED             STATUS              PORTS                                  NAMES
-ccf0e9a0637d        garystafford/storefront-fulfillment:latest   "java -jar -Djava.se…"   11 minutes ago      Up 11 minutes       8080/tcp                               storefront_fulfillment.1.0mht01m6nk461q7mt1ey4zsjb
-f8a4654183cb        hlebalbau/kafka-manager:latest               "/kafka-manager/bin/…"   11 minutes ago      Up 11 minutes                                              storefront_kafka_manager.1.so9h6c8veemrwlznj5zdk3sdw
-fe6579d68846        garystafford/storefront-accounts:latest      "java -jar -Djava.se…"   11 minutes ago      Up 11 minutes       8080/tcp                               storefront_accounts.1.nafdn02w68nixyvmz7l46kzcq
-2495802b640b        garystafford/storefront-eureka:latest        "java -jar -Djava.se…"   11 minutes ago      Up 11 minutes       8761/tcp                               storefront_eureka.1.x2tu8vg1dnizx61lwnudrnsml
-5afe1e94162f        wurstmeister/kafka:latest                    "start-kafka.sh"         12 minutes ago      Up 11 minutes                                              storefront_kafka.1.n55qrkbqfueg1sgz0fb9h47qu
-44a9d4dbdc4b        mongo:latest                                 "docker-entrypoint.s…"   12 minutes ago      Up 11 minutes       27017/tcp                              storefront_mongo.1.tfy3u2zi4bpcmb7372ihdjmbc
-23be66801ebc        garystafford/storefront-orders:latest        "java -jar -Djava.se…"   12 minutes ago      Up 11 minutes       8080/tcp                               storefront_orders.1.bo5hfnqb9ijbfd7vp88hcs3vn
-bbe4dbe00048        wurstmeister/zookeeper:latest                "/bin/sh -c '/usr/sb…"   12 minutes ago      Up 12 minutes       22/tcp, 2181/tcp, 2888/tcp, 3888/tcp   storefront_zookeeper.1.ipfwro51ob6fpls26bk14lvkt
-98b8084f0162        garystafford/storefront-zuul:latest          "java -jar -Djava.se…"   12 minutes ago      Up 12 minutes       8761/tcp                               storefront_zuul.1.u4h4bxp01mcwetyoezk19ljzt
+CONTAINER ID   IMAGE                                       COMMAND                  CREATED             STATUS             PORTS                                                  NAMES
+7a1382353e96   garystafford/storefront-orders:3.0.0        "java -jar -Djava.se…"   About an hour ago   Up About an hour   8080/tcp                                               storefront_orders.1.8w90p3sdxl3wb837vfy7w382j
+fd3e9bb45c6f   garystafford/storefront-accounts:3.0.0      "java -jar -Djava.se…"   About an hour ago   Up About an hour   8080/tcp                                               storefront_accounts.1.ma2kv9v3ulzq1xqziutht3631
+264a7ba2dd8a   garystafford/storefront-fulfillment:3.0.0   "java -jar -Djava.se…"   About an hour ago   Up About an hour   8080/tcp                                               storefront_fulfillment.1.qwb64lv2dgvyoqkm2aaf22exj
+0862ecb5daa6   hlebalbau/kafka-manager:3.0.0.5             "/kafka-manager/bin/…"   2 hours ago         Up 2 hours         0.0.0.0:9000->9000/tcp                                 storefront_kafka_manager.1.fqk7i3k8c71mmzwp4d8ink5fv
+53a661cb17cf   wurstmeister/kafka:2.13-2.7.0               "start-kafka.sh"         2 hours ago         Up 2 hours         0.0.0.0:9092->9092/tcp                                 storefront_kafka.1.ka95csztjcfnz5lozz2e32onl
+550d68864b6f   zookeeper:3.7.0                             "/docker-entrypoint.…"   2 hours ago         Up 2 hours         2888/tcp, 3888/tcp, 0.0.0.0:2181->2181/tcp, 8080/tcp   storefront_zookeeper.1.b0sde5og2cc74j1ssjmqdi3e3
+6358b43b9af1   garystafford/storefront-eureka:3.0.0        "java -jar -Djava.se…"   2 hours ago         Up 2 hours         0.0.0.0:8761->8761/tcp                                 storefront_eureka.1.deqfb9ibcb6p84qg84b14d5vz
+bb6b52740b2d   mongo-express:0.54.0                        "tini -- /docker-ent…"   2 hours ago         Up 2 hours         0.0.0.0:8081->8081/tcp                                 storefront_mongo_express.1.he0sj16ofyd8xke8t887fvlkc
+c6e435d70a48   mongo:4.4.6                                 "docker-entrypoint.s…"   2 hours ago         Up 2 hours         0.0.0.0:27017->27017/tcp                               storefront_mongo.1.pv0grikr4yjdipafpdvrg56uf
+2e09b154bdc8   grafana/grafana:7.5.6-ubuntu                "/run.sh"                2 hours ago         Up 2 hours         0.0.0.0:3000->3000/tcp                                 storefront_grafana.1.zlhn98glmxgfoiyl8ce7yvjb9
+43fcb19f38c0   garystafford/storefront-zuul:1.0.0          "java -jar -Djava.se…"   2 hours ago         Up 2 hours         0.0.0.0:8080->8080/tcp, 8761/tcp                       storefront_zuul.1.6q7kbj6zo0qx8ccbom7m1uetr
+f1ee73eec8b5   prom/prometheus:v2.27.0                     "/bin/prometheus --c…"   2 hours ago         Up 2 hours         0.0.0.0:9090->9090/tcp                                 storefront_prometheus.1.bubfxjy30auua8hlwgc9k221v
 ```
 
 ## Orders Customer Object in MongoDB
