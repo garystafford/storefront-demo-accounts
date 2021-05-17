@@ -134,8 +134,9 @@ Output from Kafka container using the following command.
 
 ```bash
 kafka-console-consumer.sh \
-  --bootstrap-server kafka:9092 \
-  --from-beginning --topic accounts.customer.change
+  --bootstrap-server localhost:9092 \
+  --from-beginning --topic accounts.customer.change \
+  | jq
 ```
 
 Kafka Consumer Output

@@ -62,7 +62,7 @@ logging:
 spring:
   config:
     activate:
-      on-profile: gke
+      on-profile: confluent
 server:
   port: 8080
 logging:

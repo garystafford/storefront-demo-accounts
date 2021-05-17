@@ -17,7 +17,7 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import java.util.HashMap;
 import java.util.Map;
 
-@Profile("gke")
+@Profile("confluent")
 @Configuration
 @EnableKafka
 public class SenderConfigConfluent implements SenderConfig {
