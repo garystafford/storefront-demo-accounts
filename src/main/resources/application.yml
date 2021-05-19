@@ -67,7 +67,7 @@ spring:
     mongodb:
       uri: mongodb://mongo.dev:27017/accounts
   kafka:
-    bootstrap-servers: kafka-cluster.dev:9092
+    bootstrap-servers: kafka.dev:9092
 management:
   endpoints:
     web:
