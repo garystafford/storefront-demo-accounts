@@ -29,7 +29,6 @@ ext {
     set('springBootVersion', '2.4.5')
     set('springKafkaVersion', '2.7.0')
     set('springFoxVersion', '3.0.0')
-    set('springCloudEureka', '3.0.2')
     set('springCloudSleuth', '3.0.2')
     set('micrometer', '1.7.0')
 }
@@ -56,7 +55,6 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-hateoas:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     implementation "org.springframework.kafka:spring-kafka:$springKafkaVersion"
-    implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:${springCloudEureka}"
 
     implementation "org.springframework.cloud:spring-cloud-starter-sleuth:${springCloudSleuth}"
     implementation "org.springframework.cloud:spring-cloud-sleuth-zipkin:${springCloudSleuth}"

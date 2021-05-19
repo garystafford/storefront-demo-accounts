@@ -1,11 +1,5 @@
 server:
   port: 8080
-eureka:
-  instance:
-    hostname: accounts
-  client:
-    serviceUrl:
-      defaultZone: http://eureka:8761/eureka/
 spring:
   main:
     allow-bean-definition-overriding: true
@@ -44,12 +38,6 @@ spring:
     bootstrap-servers: localhost:9092
 server:
   port: 8085
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
 management:
   endpoints:
     web:
@@ -68,3 +56,23 @@ server:
 logging:
   level:
     root: INFO
+---
+server:
+  port: 8080
+spring:
+  config:
+    activate:
+      on-profile: minikube
+  data:
+    mongodb:
+      uri: mongodb://mongo.dev:27017/accounts
+  kafka:
+    bootstrap-servers: kafka-cluster.dev:9092
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+logging:
+  level:
+    root: DEBUG
