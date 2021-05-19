@@ -33,7 +33,7 @@ spring:
       on-profile: local
   data:
     mongodb:
-      uri: mongodb://localhost:27017/orders
+      uri: mongodb://localhost:27017/accounts
   kafka:
     bootstrap-servers: localhost:9092
 server:
